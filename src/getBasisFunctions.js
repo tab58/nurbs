@@ -26,4 +26,5 @@ module.exports = function getBasisFunctions (i, u, p, U, NN) {
     }
     N[j] = saved;
   }
+  return N;
 };

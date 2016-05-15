@@ -23,6 +23,26 @@ describe('Basis Function Tests', function () {
                         closeTo(N[2], 0.125);
     chai.assert(correctValues, 'Did not find correct basis function values.');
   });
+  it('A2.3: Derivatives of All Basis Functions', function () {
+    var p = 2;
+    var U = [0, 0, 0, 1, 2, 3, 4, 4, 5, 5, 5];
+    var u = 5 / 2;
+    var D = new Float64Array((p + 1) * (p + 1));
+    var n = p;
+    nurbs.getDerivativesBasisFunctions(u, p, U, n, D);
+    var correctValues = closeTo(D[0 * 3 + 0], 0.125) &&
+                        closeTo(D[0 * 3 + 1], 0.750) &&
+                        closeTo(D[0 * 3 + 2], 0.125);
+    chai.assert(correctValues, 'Did not find correct basis function values.');
+    correctValues = closeTo(D[1 * 3 + 0], -0.5) &&
+                    closeTo(D[1 * 3 + 1], 0) &&
+                    closeTo(D[1 * 3 + 2], 0.5);
+    chai.assert(correctValues, 'Did not find correct 1st derivative values.');
+    correctValues = closeTo(D[2 * 3 + 0], 1) &&
+                    closeTo(D[2 * 3 + 1], -2) &&
+                    closeTo(D[2 * 3 + 2], 1);
+    chai.assert(correctValues, 'Did not find correct 2nd derivative values.');
+  });
   it('A2.4: One Basis Function', function () {
     var p = 2;
     var U = [0, 0, 0, 1, 2, 3, 4, 4, 5, 5, 5];
@@ -30,5 +50,18 @@ describe('Basis Function Tests', function () {
     var i = 4;
     var N = nurbs.oneBasisFunction(i, u, p, U);
     chai.assert(closeTo(N, 0.125), 'Did not find the right basis function.');
+  });
+  it('A2.5: Derivatives of Single Basis Function', function () {
+    var p = 2;
+    var U = [0, 0, 0, 1, 2, 3, 4, 4, 5, 5, 5];
+    var u = 5 / 2;
+    var n = p;
+    var i = 4;
+    var D = new Float64Array(n + 1);
+    nurbs.getDerivatives1BasisFunction(i, u, p, U, n, D);
+    var correctValues = closeTo(D[0], 0.125) &&
+                        closeTo(D[1], 0.5) &&
+                        closeTo(D[2], 1);
+    chai.assert(correctValues, 'Did not find correct basis function derivatives.');
   });
 });
