@@ -15,9 +15,8 @@ describe('Basis Function Tests', function () {
     var p = 2;
     var U = [0, 0, 0, 1, 2, 3, 4, 4, 5, 5, 5];
     var u = 5 / 2;
-    var i = nurbs.findKnotSpan(p, u, U);
     var N = [0.0, 0.0, 0.0];
-    nurbs.getBasisFunctions(i, u, p, U, N);
+    nurbs.getBasisFunctions(u, p, U, N);
     var correctValues = closeTo(N[0], 0.125) &&
                         closeTo(N[1], 0.750) &&
                         closeTo(N[2], 0.125);

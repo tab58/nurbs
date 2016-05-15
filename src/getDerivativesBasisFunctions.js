@@ -15,7 +15,9 @@ var findKnotSpan = require('./findKnotSpan.js');
  *  @returns {Array|Number} -- the input parameter D, or a Float64Array(n + 1) with the derivative info
  *
  *  NOTES:
- *    1. Computes the nub
+ *    1. Computes the knot span from the parameter value.
+ *    2. Computes intermediate values in 2 Float64Array[p + 1], 1 Float64Array[p + 1][p + 1], 
+ *       and 1 Float64Array[2][p + 1]
  */
 module.exports = function getDerivativesBasisFunctions (u, p, U, n, D) {
   var i = findKnotSpan(p, u, U);
