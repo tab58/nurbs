@@ -2,16 +2,16 @@
 
 var chai = require('chai');
 var nurbs = require('../index.js');
-var closeTo = require('../lib/closeTo.js');
+var closeTo = require('../lib/scalarCloseTo.js');
 
 describe('Basis Function Tests', function () {
-  it('Find Knot Span', function () {
+  it('A2.1: Find Knot Span', function () {
     var p = 2;
     var U = [0, 0, 0, 1, 2, 3, 4, 4, 5, 5, 5];
     var u = 5 / 2;
     chai.assert(nurbs.findKnotSpan(p, u, U) === 4, 'Did not find correct knot span.');
   });
-  it('B-spline Basis Functions', function () {
+  it('A2.2: B-spline Basis Functions', function () {
     var p = 2;
     var U = [0, 0, 0, 1, 2, 3, 4, 4, 5, 5, 5];
     var u = 5 / 2;
@@ -22,5 +22,13 @@ describe('Basis Function Tests', function () {
                         closeTo(N[1], 0.750) &&
                         closeTo(N[2], 0.125);
     chai.assert(correctValues, 'Did not find correct basis function values.');
+  });
+  it('A2.4: One Basis Function', function () {
+    var p = 2;
+    var U = [0, 0, 0, 1, 2, 3, 4, 4, 5, 5, 5];
+    var u = 5 / 2;
+    var i = 4;
+    var N = nurbs.oneBasisFunction(i, u, p, U);
+    chai.assert(closeTo(N, 0.125), 'Did not find the right basis function.');
   });
 });
