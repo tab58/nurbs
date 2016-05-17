@@ -10,5 +10,9 @@ module.exports.getDerivativesBasisFunctions = require('./src/getDerivativesBasis
 module.exports.oneBasisFunction = require('./src/oneBasisFunction.js');
 // Algorithm A2.5
 module.exports.getDerivatives1BasisFunction = require('./src/getDerivatives1BasisFunction.js');
+
 // Algorithm A3.1
-module.exports.curvePoint = require('./src/curvePoint.js');
+module.exports.getCurvePoint2D = require('./src/getCurvePoint2D.js');
+
+// Algorithm A4.1
+module.exports.getRationalCurvePoint2D = require('./src/getRationalCurvePoint2D.js');
