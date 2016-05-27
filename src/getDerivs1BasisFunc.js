@@ -18,7 +18,7 @@ var ndarray = require('ndarray');
  *    1. Computes the full triangular table for nonzero basis functions.
  *    2. Computes intermediate values in 1 Float64Array[p + 1][p + 1] and 1 Float64Array[p + 1]
  */
-module.exports = function getDerivatives1BasisFunction (i, u, p, U, n, D) {
+module.exports = function getDerivs1BasisFunc (i, u, p, U, n, D) {
   var ders = D || new Float64Array(n + 1);
   var j = 0;
   var jj = 0;

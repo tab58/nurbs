@@ -57,7 +57,7 @@ describe('Basis Function Tests', function () {
     var n = p;
     var i = 4;
     var D = new Float64Array(n + 1);
-    nurbs.getDerivatives1BasisFunction(i, u, p, U, n, D);
+    nurbs.getDerivs1BasisFunc(i, u, p, U, n, D);
     var correctValues = closeTo(D[0], 0.125) &&
                         closeTo(D[1], 0.5) &&
                         closeTo(D[2], 1);
