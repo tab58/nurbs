@@ -20,7 +20,8 @@ var getBasisFunctions = require('./getBasisFunctions.js');
  *    2. When W is undefined or null, the weights default to 1.
  */
 module.exports = function getRationalCurvePoint2D (u, p, U, P, W) {
-  if (!W) {
+  if (!W || W.length === 0) {
+    console.log('Empty weight array.');
     return require('./getCurvePoint2D')(u, p, U, P);
   }
   var span = findKnotSpan(p, u, U);
@@ -31,7 +32,7 @@ module.exports = function getRationalCurvePoint2D (u, p, U, P, W) {
   var w = 0.0;
   var wi = 0;
   for (i = 0; i <= p; ++i) {
-    wi = N[i] * w[i];
+    wi = N[i] * W[i];
     glm.vec2.scaleAndAdd(C, C, P[span - p + i], wi);
     w += wi;
   }
@@ -39,8 +40,6 @@ module.exports = function getRationalCurvePoint2D (u, p, U, P, W) {
   if (w === 0) {
     throw new Error('Weighted basis functions add to zero.');
   }
-  for (i = 0; i <= p; ++i) {
-    glm.vec2.scale(C, C, w);
-  }
+  glm.vec2.scale(C, C, w);
   return C;
 };

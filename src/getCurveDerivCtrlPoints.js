@@ -20,7 +20,7 @@ var glm = require('gl-matrix');
  *    1. Creates (d+1)*(r+1) vec2 elements.
  */
 module.exports = function getCurveDerivCtrlPoints (u, p, U, P, d, r1, r2, Pk) {
-  var n = P.length - 1;
+  // var n = P.length - 1;
   var r = r2 - r1;
   var PK;
   var i = 0;
@@ -38,6 +38,8 @@ module.exports = function getCurveDerivCtrlPoints (u, p, U, P, d, r1, r2, Pk) {
       PK.push(temp);
     }
   }
+  console.log('PK = ');
+  console.log(PK);
 
   for (i = 0; i <= r; ++i) {
     glm.vec2.copy(PK[0][i], P[r1 + i]);

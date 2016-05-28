@@ -18,7 +18,7 @@ describe('Curve Function Tests', function () {
     ];
     var C = nurbs.getCurvePoint2D(u, p, U, P);
     var correct = vec2CloseTo(C, glm.vec2.fromValues(1.5, 0.75));
-    chai.assert(correct, 'Did not find correct curve point.');
+    chai.assert(correct, 'Did not find correct nonrational curve point.');
   });
   it('A3.2: Curve Derivative Point Evaluation', function () {
     var p = 3;
