@@ -33,7 +33,7 @@ module.exports.getCurveDerivCtrlPoints3 = alg3_3.getCurveDerivCtrlPoints3;
 module.exports.getCurveDerivCtrlPoints4 = alg3_3.getCurveDerivCtrlPoints4;
 
 // Algorithm A4.1
-var alg4_1 = require('./src/alg4_1.js');
+var alg4_1 = require('./src/alg4-1.js');
 module.exports.getRationalCurvePoint = alg4_1.getRationalCurvePoint;
 module.exports.getRationalCurvePoint2 = alg4_1.getRationalCurvePoint2;
 module.exports.getRationalCurvePoint3 = alg4_1.getRationalCurvePoint3;
