@@ -38,8 +38,6 @@ var getCurveDerivCtrlPoints_generic = function getCurveDerivCtrlPoints (p, U, P,
       PK.push(temp);
     }
   }
-  console.log('PK = ');
-  console.log(PK);
 
   for (i = 0; i <= r; ++i) {
     vec.copy(PK[0][i], P[r1 + i]);

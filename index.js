@@ -39,4 +39,4 @@ module.exports.getRationalCurvePoint2 = alg4_1.getRationalCurvePoint2;
 module.exports.getRationalCurvePoint3 = alg4_1.getRationalCurvePoint3;
 module.exports.getRationalCurvePoint4 = alg4_1.getRationalCurvePoint4;
 // Algorithm A4.2
-module.exports.getRationalCurveDerivAtPoint = require('./src/4/getRationalCurveDerivs.js');
+// module.exports.getRationalCurveDerivAtPoint = require('./src/4/getRationalCurveDerivs.js');

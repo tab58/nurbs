@@ -19,7 +19,6 @@ describe('Rational Curve Function Tests', function () {
       glm.vec2.fromValues(e, r),
       glm.vec2.fromValues(r, e),
       glm.vec2.fromValues(r, 0)
-<<<<<<< HEAD
     ];
     var ww = (1 + 2 * Math.cos(th / 2)) / 3;
     var W = [
@@ -31,18 +30,5 @@ describe('Rational Curve Function Tests', function () {
     var C = nurbs.getRationalCurvePoint(u, p, U, P, W);
     var correct = closeTo(C, glm.vec2.fromValues(sq2, sq2));
     chai.assert(correct, 'Did not find correct rational curve point: tolerance ');
-=======
-    ];
-    var ww = (1 + 2 * Math.cos(th / 2)) / 3;
-    var W = [
-      1,
-      ww,
-      ww,
-      1
-    ];
-    var C = nurbs.getRationalCurvePoint2D(u, p, U, P, W);
-    var correct = vec2CloseTo(C, glm.vec2.fromValues(sq2, sq2), 1e-7);
-    chai.assert(correct, 'Did not find correct rational curve point.');
->>>>>>> 4997f53fc06d3e938c388bc7962b69366a73bed3
   });
 });
