@@ -1,6 +1,7 @@
 'use strict';
 
 var glm = require('gl-matrix');
+var getAutoVectorType = require('../lib/getAutoVectorType.js');
 
 /*
  *  Computes the points for a given section (r1 to r2 inclusive) of a series of derivative curves.
@@ -19,8 +20,7 @@ var glm = require('gl-matrix');
  *  NOTES:
  *    1. Creates (d+1)*(r+1) vec2 elements.
  */
-module.exports = function getCurveDerivCtrlPoints (u, p, U, P, d, r1, r2, Pk) {
-  // var n = P.length - 1;
+var getCurveDerivCtrlPoints_generic = function getCurveDerivCtrlPoints (p, U, P, d, r1, r2, Pk, vec) {
   var r = r2 - r1;
   var PK;
   var i = 0;
@@ -32,24 +32,39 @@ module.exports = function getCurveDerivCtrlPoints (u, p, U, P, d, r1, r2, Pk) {
     PK = [];
     for (k = 0; k <= d; ++k) {
       temp = [];
-      for (i = 0; i <= r; ++i) {
-        temp.push(glm.vec2.create());
+      for (i = 0; i <= r - k; ++i) {
+        temp.push(vec.create());
       }
       PK.push(temp);
     }
   }
-  console.log('PK = ');
-  console.log(PK);
 
   for (i = 0; i <= r; ++i) {
-    glm.vec2.copy(PK[0][i], P[r1 + i]);
+    vec.copy(PK[0][i], P[r1 + i]);
   }
   for (k = 1; k <= d; ++k) {
     temp = p - k + 1;
     for (i = 0; i <= r - k; ++i) {
-      glm.vec2.sub(PK[k][i], PK[k - 1][i + 1], PK[k - 1][i]);
-      glm.vec2.scale(PK[k][i], temp / (U[r1 + i + p + 1] - U[r1 + i + k]));
+      vec.sub(PK[k][i], PK[k - 1][i + 1], PK[k - 1][i]);
+      vec.scale(PK[k][i], PK[k][i], temp / (U[r1 + i + p + 1] - U[r1 + i + k]));
     }
   }
   return PK;
 };
+
+module.exports = {
+  getCurveDerivCtrlPoints: function getCurveDerivCtrlPoints (p, U, P, d, r1, r2, Pk) {
+    var vec = getAutoVectorType(P[0]);
+    return getCurveDerivCtrlPoints_generic(p, U, P, d, r1, r2, Pk, vec);
+  },
+  getCurveDerivCtrlPoints2: function getCurveDerivCtrlPoints2 (p, U, P, d, r1, r2, Pk) {
+    return getCurveDerivCtrlPoints_generic(p, U, P, d, r1, r2, Pk, glm.vec2);
+  },
+  getCurveDerivCtrlPoints3: function getCurveDerivCtrlPoints3 (p, U, P, d, r1, r2, Pk) {
+    return getCurveDerivCtrlPoints_generic(p, U, P, d, r1, r2, Pk, glm.vec3);
+  },
+  getCurveDerivCtrlPoints4: function getCurveDerivCtrlPoints4 (p, U, P, d, r1, r2, Pk) {
+    return getCurveDerivCtrlPoints_generic(p, U, P, d, r1, r2, Pk, glm.vec4);
+  }
+};
+

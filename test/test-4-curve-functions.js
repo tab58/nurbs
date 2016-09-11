@@ -2,7 +2,7 @@
 
 var chai = require('chai');
 var nurbs = require('../index.js');
-var vec2CloseTo = require('../lib/vec2CloseTo.js');
+var closeTo = require('../lib/closeTo.js');
 var glm = require('gl-matrix');
 
 describe('Rational Curve Function Tests', function () {
@@ -27,8 +27,8 @@ describe('Rational Curve Function Tests', function () {
       ww,
       1
     ];
-    var C = nurbs.getRationalCurvePoint2D(u, p, U, P, W);
-    var correct = vec2CloseTo(C, glm.vec2.fromValues(sq2, sq2), 1e-7);
-    chai.assert(correct, 'Did not find correct rational curve point.');
+    var C = nurbs.getRationalCurvePoint(u, p, U, P, W);
+    var correct = closeTo(C, glm.vec2.fromValues(sq2, sq2));
+    chai.assert(correct, 'Did not find correct rational curve point: tolerance ');
   });
 });

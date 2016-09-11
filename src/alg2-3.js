@@ -1,7 +1,7 @@
 'use strict';
 
 var ndarray = require('ndarray');
-var findKnotSpan = require('./findKnotSpan.js');
+var findKnotSpan = require('./alg2-1.js');
 
 /*
  *  Computes the derivatives for all nonzero basis functions.

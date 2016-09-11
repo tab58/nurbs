@@ -14,7 +14,7 @@
  *    1. Does no checks if the parameter value is greater than the maximum
  *       knot vector value or less than the minimum.
  */
-module.exports = function oneBasisFunction (i, u, p, U) {
+module.exports = function getOneBasisFunction (i, u, p, U) {
   var m = U.length - 1;
   var N = new Float64Array(p + 1);
   var j = 0;
@@ -31,7 +31,8 @@ module.exports = function oneBasisFunction (i, u, p, U) {
   if (u < U[i] || u >= U[i + p + 1]) {
     return 0.0;
   }
-  for (j = 0; j <= p; ++j) {
+  for (j = 0; j <=
+   p; ++j) {
     if (u >= U[i + j] && u < U[i + j + 1]) {
       N[j] = 1.0;
     } else {

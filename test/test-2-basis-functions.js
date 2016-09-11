@@ -2,7 +2,7 @@
 
 var chai = require('chai');
 var nurbs = require('../index.js');
-var closeTo = require('../lib/scalarCloseTo.js');
+var closeTo = require('../lib/closeTo.js');
 
 describe('Basis Function Tests', function () {
   it('A2.1: Find Knot Span', function () {
@@ -28,7 +28,7 @@ describe('Basis Function Tests', function () {
     var u = 5 / 2;
     var D = new Float64Array((p + 1) * (p + 1));
     var n = p;
-    nurbs.getDerivativesBasisFunctions(u, p, U, n, D);
+    nurbs.getDerivsOfBasisFunctions(u, p, U, n, D);
     var correctValues = closeTo(D[0 * 3 + 0], 0.125) &&
                         closeTo(D[0 * 3 + 1], 0.750) &&
                         closeTo(D[0 * 3 + 2], 0.125);
@@ -47,7 +47,7 @@ describe('Basis Function Tests', function () {
     var U = [0, 0, 0, 1, 2, 3, 4, 4, 5, 5, 5];
     var u = 5 / 2;
     var i = 4;
-    var N = nurbs.oneBasisFunction(i, u, p, U);
+    var N = nurbs.getOneBasisFunction(i, u, p, U);
     chai.assert(closeTo(N, 0.125), 'Did not find the right basis function.');
   });
   it('A2.5: Derivatives of Single Basis Function', function () {
@@ -57,7 +57,7 @@ describe('Basis Function Tests', function () {
     var n = p;
     var i = 4;
     var D = new Float64Array(n + 1);
-    nurbs.getDerivs1BasisFunc(i, u, p, U, n, D);
+    nurbs.getDerivsOf1BasisFunction(i, u, p, U, n, D);
     var correctValues = closeTo(D[0], 0.125) &&
                         closeTo(D[1], 0.5) &&
                         closeTo(D[2], 1);

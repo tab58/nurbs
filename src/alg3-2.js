@@ -1,8 +1,9 @@
 'use strict';
 
 var glm = require('gl-matrix');
-var findKnotSpan = require('./findKnotSpan.js');
-var getDerivativesBasisFunctions = require('./getDerivativesBasisFunctions.js');
+var findKnotSpan = require('./alg2-1.js');
+var getDerivsOfBasisFunctions = require('./alg2-3.js');
+var getAutoVectorType = require('../lib/getAutoVectorType.js');
 
 /*
  *  Computes the points at the parameter value on a series of derivative curves.
@@ -19,7 +20,7 @@ var getDerivativesBasisFunctions = require('./getDerivativesBasisFunctions.js');
  *  NOTES:
  *    1. Computes the full triangular table for nonzero basis functions.
  */
-module.exports = function getCurveDerivatives (u, p, U, P, d, C) {
+var getCurveDerivatives_generic = function getCurveDerivatives_generic (u, p, U, P, d, C, vec) {
   var du = Math.min(d, p);
   var k = 0;
   var j = 0;
@@ -30,15 +31,31 @@ module.exports = function getCurveDerivatives (u, p, U, P, d, C) {
     CK = [];
     k = du + 1;
     while (k--) {
-      CK.push(glm.vec2.create());
+      CK.push(vec.create());
     }
   }
   var span = findKnotSpan(p, u, U);
-  var D = getDerivativesBasisFunctions(u, p, U, du);
+  var D = getDerivsOfBasisFunctions(u, p, U, du);
   for (k = 0; k <= du; ++k) {
     for (j = 0; j <= p; ++j) {
-      glm.vec2.scaleAndAdd(CK[k], CK[k], P[span - p + j], D[k * (p + 1) + j]);
+      vec.scaleAndAdd(CK[k], CK[k], P[span - p + j], D[k * (p + 1) + j]);
     }
   }
   return CK;
+};
+
+module.exports = {
+  getCurveDerivatives: function (u, p, U, P, d, C) {
+    var vec = getAutoVectorType(P[0]);
+    return getCurveDerivatives_generic(u, p, U, P, d, C, vec);
+  },
+  getCurveDerivatives2: function (u, p, U, P, d, C) {
+    return getCurveDerivatives_generic(u, p, U, P, d, C, glm.vec2);
+  },
+  getCurveDerivatives3: function (u, p, U, P, d, C) {
+    return getCurveDerivatives_generic(u, p, U, P, d, C, glm.vec3);
+  },
+  getCurveDerivatives4: function (u, p, U, P, d, C) {
+    return getCurveDerivatives_generic(u, p, U, P, d, C, glm.vec4);
+  }
 };
