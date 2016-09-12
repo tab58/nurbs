@@ -35,7 +35,6 @@
     ]
   },
   "dependencies": {
-    "gl-matrix": "^2.3.2",
-    "ndarray": "^1.0.18"
+    "gl-matrix": "^2.3.2"
   }
 }

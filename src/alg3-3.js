@@ -20,7 +20,7 @@ var getAutoVectorType = require('../lib/getAutoVectorType.js');
  *  NOTES:
  *    1. Creates (d+1)*(r+1) vec2 elements.
  */
-var getCurveDerivCtrlPoints_generic = function getCurveDerivCtrlPoints (p, U, P, d, r1, r2, Pk, vec) {
+var getCurveDerivCtrlPointsGeneric = function getCurveDerivCtrlPointsGeneric (p, U, P, d, r1, r2, Pk, vec) {
   var r = r2 - r1;
   var PK;
   var i = 0;
@@ -55,16 +55,17 @@ var getCurveDerivCtrlPoints_generic = function getCurveDerivCtrlPoints (p, U, P,
 module.exports = {
   getCurveDerivCtrlPoints: function getCurveDerivCtrlPoints (p, U, P, d, r1, r2, Pk) {
     var vec = getAutoVectorType(P[0]);
-    return getCurveDerivCtrlPoints_generic(p, U, P, d, r1, r2, Pk, vec);
+    return getCurveDerivCtrlPointsGeneric(p, U, P, d, r1, r2, Pk, vec);
   },
   getCurveDerivCtrlPoints2: function getCurveDerivCtrlPoints2 (p, U, P, d, r1, r2, Pk) {
-    return getCurveDerivCtrlPoints_generic(p, U, P, d, r1, r2, Pk, glm.vec2);
+    return getCurveDerivCtrlPointsGeneric(p, U, P, d, r1, r2, Pk, glm.vec2);
   },
   getCurveDerivCtrlPoints3: function getCurveDerivCtrlPoints3 (p, U, P, d, r1, r2, Pk) {
-    return getCurveDerivCtrlPoints_generic(p, U, P, d, r1, r2, Pk, glm.vec3);
+    return getCurveDerivCtrlPointsGeneric(p, U, P, d, r1, r2, Pk, glm.vec3);
   },
   getCurveDerivCtrlPoints4: function getCurveDerivCtrlPoints4 (p, U, P, d, r1, r2, Pk) {
-    return getCurveDerivCtrlPoints_generic(p, U, P, d, r1, r2, Pk, glm.vec4);
-  }
+    return getCurveDerivCtrlPointsGeneric(p, U, P, d, r1, r2, Pk, glm.vec4);
+  },
+  getCurveDerivCtrlPointsGeneric: getCurveDerivCtrlPointsGeneric
 };
 

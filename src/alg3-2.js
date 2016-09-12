@@ -11,16 +11,16 @@ var getAutoVectorType = require('../lib/getAutoVectorType.js');
  *  @param {Number} u -- the parameter value at which to evaluate the basis function
  *  @param {Number} p -- the degree of the B-spline (integer)
  *  @param {Array|Number} U -- the knot vector of the B-spline
- *  @param {Array|vec2} P -- the 2D control points
+ *  @param {Array|vector} P -- the 2D control points
  *  @param {Number} d -- the number of derivatives to evaluate (integer, d in [0, Inf) but d > p is zero)
- *  @param {Array|vec2} C -- a vector to hold the points at the derivative curves.
+ *  @param {Array|vector} C -- a vector to hold the points at the derivative curves.
  *
  *  @returns {Array|Number} -- the input parameter C, or a Float64Array(d + 1) with the derivative point info
  *
  *  NOTES:
  *    1. Computes the full triangular table for nonzero basis functions.
  */
-var getCurveDerivatives_generic = function getCurveDerivatives_generic (u, p, U, P, d, C, vec) {
+var getCurveDerivativesGeneric = function getCurveDerivativesGeneric (u, p, U, P, d, C, vec) {
   var du = Math.min(d, p);
   var k = 0;
   var j = 0;
@@ -38,7 +38,7 @@ var getCurveDerivatives_generic = function getCurveDerivatives_generic (u, p, U,
   var D = getDerivsOfBasisFunctions(u, p, U, du);
   for (k = 0; k <= du; ++k) {
     for (j = 0; j <= p; ++j) {
-      vec.scaleAndAdd(CK[k], CK[k], P[span - p + j], D[k * (p + 1) + j]);
+      vec.scaleAndAdd(CK[k], CK[k], P[span - p + j], D[k][j]);
     }
   }
   return CK;
@@ -47,15 +47,16 @@ var getCurveDerivatives_generic = function getCurveDerivatives_generic (u, p, U,
 module.exports = {
   getCurveDerivatives: function (u, p, U, P, d, C) {
     var vec = getAutoVectorType(P[0]);
-    return getCurveDerivatives_generic(u, p, U, P, d, C, vec);
+    return getCurveDerivativesGeneric(u, p, U, P, d, C, vec);
   },
   getCurveDerivatives2: function (u, p, U, P, d, C) {
-    return getCurveDerivatives_generic(u, p, U, P, d, C, glm.vec2);
+    return getCurveDerivativesGeneric(u, p, U, P, d, C, glm.vec2);
   },
   getCurveDerivatives3: function (u, p, U, P, d, C) {
-    return getCurveDerivatives_generic(u, p, U, P, d, C, glm.vec3);
+    return getCurveDerivativesGeneric(u, p, U, P, d, C, glm.vec3);
   },
   getCurveDerivatives4: function (u, p, U, P, d, C) {
-    return getCurveDerivatives_generic(u, p, U, P, d, C, glm.vec4);
-  }
+    return getCurveDerivativesGeneric(u, p, U, P, d, C, glm.vec4);
+  },
+  getCurveDerivativesGeneric: getCurveDerivativesGeneric
 };

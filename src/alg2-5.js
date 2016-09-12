@@ -1,6 +1,6 @@
 'use strict';
 
-var ndarray = require('ndarray');
+var array2d = require('../lib/create2darray.js');
 
 /*
  *  Computes the derivatives for a single basis function.
@@ -27,7 +27,7 @@ module.exports = function getDerivs1BasisFunc (i, u, p, U, n, D) {
   var Uright = 0.0;
   var saved = 0.0;
   var temp = 0.0;
-  var N = ndarray(new Float64Array((p + 1) * (p + 1)), [p + 1, p + 1]);
+  var N = array2d(p + 1, p + 1);
   var ND = new Float64Array(n + 1);
 
   if (u < U[i] || u >= U[i + p + 1]) {
@@ -38,34 +38,32 @@ module.exports = function getDerivs1BasisFunc (i, u, p, U, n, D) {
   }
   for (j = 0; j <= p; ++j) {
     if (u >= U[i + j] && u < U[i + j + 1]) {
-      N.set(j, 0, 1.0);
-    } else {
-      N.set(j, 0, 0.0);
+      N[j][0] = 1.0;
     }
   }
   for (k = 1; k <= p; ++k) {
-    if (N.get(0, k - 1) === 0.0) {
+    if (N[0][k - 1] === 0.0) {
       saved = 0.0;
     } else {
-      saved = ((u - U[i]) * N.get(0, k - 1)) / (U[i + k] - U[i]);
+      saved = ((u - U[i]) * N[0][k - 1]) / (U[i + k] - U[i]);
     }
     for (j = 0; j < p - k + 1; ++j) {
       Uleft = U[i + j + 1];
       Uright = U[i + j + k + 1];
-      if (N.get(j + 1, k - 1) === 0.0) {
-        N.set(j, k, saved);
+      if (N[j + 1][k - 1] === 0.0) {
+        N[j][k] = saved;
         saved = 0.0;
       } else {
-        temp = N.get(j + 1, k - 1) / (Uright - Uleft);
-        N.set(j, k, saved + (Uright - u) * temp);
+        temp = N[j + 1][k - 1] / (Uright - Uleft);
+        N[j][k] = saved + (Uright - u) * temp;
         saved = (u - Uleft) * temp;
       }
     }
   }
-  ders[0] = N.get(0, p);
+  ders[0] = N[0][p];
   for (k = 1; k <= n; ++k) {
     for (j = 0; j <= k; ++j) {
-      ND[j] = N.get(j, p - k);
+      ND[j] = N[j][p - k];
     }
     for (jj = 1; jj <= k; ++jj) {
       if (ND[0] === 0.0) {

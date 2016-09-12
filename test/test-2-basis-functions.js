@@ -26,20 +26,19 @@ describe('Basis Function Tests', function () {
     var p = 2;
     var U = [0, 0, 0, 1, 2, 3, 4, 4, 5, 5, 5];
     var u = 5 / 2;
-    var D = new Float64Array((p + 1) * (p + 1));
     var n = p;
-    nurbs.getDerivsOfBasisFunctions(u, p, U, n, D);
-    var correctValues = closeTo(D[0 * 3 + 0], 0.125) &&
-                        closeTo(D[0 * 3 + 1], 0.750) &&
-                        closeTo(D[0 * 3 + 2], 0.125);
+    var D = nurbs.getDerivsOfBasisFunctions(u, p, U, n);
+    var correctValues = closeTo(D[0][0], 0.125) &&
+                        closeTo(D[0][1], 0.750) &&
+                        closeTo(D[0][2], 0.125);
     chai.assert(correctValues, 'Did not find correct basis function values.');
-    correctValues = closeTo(D[1 * 3 + 0], -0.5) &&
-                    closeTo(D[1 * 3 + 1], 0) &&
-                    closeTo(D[1 * 3 + 2], 0.5);
+    correctValues = closeTo(D[1][0], -0.5) &&
+                    closeTo(D[1][1], 0) &&
+                    closeTo(D[1][2], 0.5);
     chai.assert(correctValues, 'Did not find correct 1st derivative values.');
-    correctValues = closeTo(D[2 * 3 + 0], 1) &&
-                    closeTo(D[2 * 3 + 1], -2) &&
-                    closeTo(D[2 * 3 + 2], 1);
+    correctValues = closeTo(D[2][0], 1) &&
+                    closeTo(D[2][1], -2) &&
+                    closeTo(D[2][2], 1);
     chai.assert(correctValues, 'Did not find correct 2nd derivative values.');
   });
   it('A2.4: One Basis Function', function () {

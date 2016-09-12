@@ -3,7 +3,7 @@
 var glm = require('gl-matrix');
 var findKnotSpan = require('./alg2-1.js');
 var getBasisFunctions = require('./alg2-2.js');
-var alg3_1 = require('./alg3-1.js');
+var alg3s1 = require('./alg3-1.js');
 var getAutoVectorType = require('../lib/getAutoVectorType.js');
 
  /*
@@ -21,10 +21,10 @@ var getAutoVectorType = require('../lib/getAutoVectorType.js');
  *    1. Computes the knot span from the parameter value.
  *    2. When W is undefined or null, the weights default to 1.
  */
-var getRationalCurvePoint_generic = function getRationalCurvePoint_generic (u, p, U, P, W, vec) {
+var getRationalCurvePointGeneric = function getRationalCurvePointGeneric (u, p, U, P, W, vec) {
   if (W === undefined || W.length === 0) {
     console.log('Empty weight array.');
-    return alg3_1.getCurvePoint(u, p, U, P);
+    return alg3s1.getCurvePoint(u, p, U, P);
   }
   var span = findKnotSpan(p, u, U);
   var N = new Float64Array(p + 1);
@@ -49,15 +49,16 @@ var getRationalCurvePoint_generic = function getRationalCurvePoint_generic (u, p
 module.exports = {
   getRationalCurvePoint: function getRationalCurvePoint (u, p, U, P, W) {
     var vec = getAutoVectorType(P[0]);
-    return getRationalCurvePoint_generic(u, p, U, P, W, vec);
+    return getRationalCurvePointGeneric(u, p, U, P, W, vec);
   },
   getRationalCurvePoint2: function getRationalCurvePoint2 (u, p, U, P, W) {
-    return getRationalCurvePoint_generic(u, p, U, P, W, glm.vec2);
+    return getRationalCurvePointGeneric(u, p, U, P, W, glm.vec2);
   },
   getRationalCurvePoint3: function getRationalCurvePoint3 (u, p, U, P, W) {
-    return getRationalCurvePoint_generic(u, p, U, P, W, glm.vec3);
+    return getRationalCurvePointGeneric(u, p, U, P, W, glm.vec3);
   },
   getRationalCurvePoint4: function getRationalCurvePoint4 (u, p, U, P, W) {
-    return getRationalCurvePoint_generic(u, p, U, P, W, glm.vec4);
-  }
+    return getRationalCurvePointGeneric(u, p, U, P, W, glm.vec4);
+  },
+  getRationalCurvePointGeneric: getRationalCurvePointGeneric
 };

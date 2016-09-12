@@ -62,4 +62,36 @@ describe('Curve Function Tests', function () {
       chai.assert(correct, 'Did not find correct 1st derivative at point ' + i + '.');
     }
   });
+  it('A3.4: Curve Derivative at Parameter Values', function () {
+    // Simple Bezier curve derivative test
+    var p = 3;
+    var U = [
+      [0, 0, 0, 0, 1, 1, 1, 1],
+      [0, 0, 0, 1, 1, 1],
+      [0, 0, 1, 1]
+    ];
+    var P = [
+      glm.vec2.fromValues(0, 0),
+      glm.vec2.fromValues(1, 1),
+      glm.vec2.fromValues(2, 1),
+      glm.vec2.fromValues(3, 0)
+    ];
+
+    var u = 0.5;
+    var d = p;
+    var CK = nurbs.getCurveDerivsAtPoint(p, U[0], P, u, d);
+
+    var r1 = 0;
+    var r2 = p;
+    d = p;
+    var PK = nurbs.getCurveDerivCtrlPoints(p, U[0], P, d, r1, r2);
+
+    // compare the values to a curve evaluation of the curve control points
+    var i = 0;
+    for (i = 0; i <= 2; ++i) {
+      var C = nurbs.getCurvePoint(u, p - i, U[i], PK[i]);
+      var correct = closeTo(C, CK[i]);
+      chai.assert(correct, 'Did not find correct value of derivative ' + i + '.');
+    }
+  });
 });

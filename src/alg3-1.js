@@ -18,7 +18,7 @@ var getAutoVectorType = require('../lib/getAutoVectorType.js');
  *  NOTES:
  *    1. Computes the knot span from the parameter value.
  */
-var getCurvePoint_generic = function getCurvePoint_generic (u, p, U, P, vec) {
+var getCurvePointGeneric = function getCurvePointGeneric (u, p, U, P, vec) {
   var span = findKnotSpan(p, u, U);
   var N = new Float64Array(p + 1);
   getBasisFunctions(u, p, U, N);
@@ -33,16 +33,17 @@ var getCurvePoint_generic = function getCurvePoint_generic (u, p, U, P, vec) {
 module.exports = {
   getCurvePoint: function getCurvePoint (u, p, U, P) {
     var vec = getAutoVectorType(P[0]);
-    return getCurvePoint_generic(u, p, U, P, vec);
+    return getCurvePointGeneric(u, p, U, P, vec);
   },
   getCurvePoint2: function getCurvePoint2 (u, p, U, P) {
-    return getCurvePoint_generic(u, p, U, P, glm.vec2);
+    return getCurvePointGeneric(u, p, U, P, glm.vec2);
   },
   getCurvePoint3: function getCurvePoint3 (u, p, U, P) {
-    return getCurvePoint_generic(u, p, U, P, glm.vec3);
+    return getCurvePointGeneric(u, p, U, P, glm.vec3);
   },
   getCurvePoint4: function getCurvePoint4 (u, p, U, P) {
-    return getCurvePoint_generic(u, p, U, P, glm.vec4);
-  }
+    return getCurvePointGeneric(u, p, U, P, glm.vec4);
+  },
+  getCurvePointGeneric: getCurvePointGeneric
 };
 
