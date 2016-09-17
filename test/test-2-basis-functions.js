@@ -3,6 +3,7 @@
 var chai = require('chai');
 var nurbs = require('../index.js');
 var closeTo = require('../lib/closeTo.js');
+var array2d = require('../lib/create2darray.js');
 
 describe('Basis Function Tests', function () {
   it('A2.1: Find Knot Span', function () {
@@ -27,7 +28,8 @@ describe('Basis Function Tests', function () {
     var U = [0, 0, 0, 1, 2, 3, 4, 4, 5, 5, 5];
     var u = 5 / 2;
     var n = p;
-    var D = nurbs.getDerivsOfBasisFunctions(u, p, U, n);
+    var D = array2d(n + 1, p + 1);
+    nurbs.getDerivsOfBasisFunctions(u, p, U, n, D);
     var correctValues = closeTo(D[0][0], 0.125) &&
                         closeTo(D[0][1], 0.750) &&
                         closeTo(D[0][2], 0.125);

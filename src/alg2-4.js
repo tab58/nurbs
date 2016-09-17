@@ -1,20 +1,20 @@
 'use strict';
 
-/*
+/**
  *  Computes the ith basis function.
- *
- *  @param {Number} i -- the basis function to compute (integer, zero-based)
- *  @param {Number} u -- the parameter value
- *  @param {Number} p -- the degree of the B-spline (integer)
- *  @param {Array|Number} U -- the knot vector of the B-spline
- *
- *  @returns {Number} -- the value of the ith basis function at the given parameter
  *
  *  NOTES:
  *    1. Does no checks if the parameter value is greater than the maximum
  *       knot vector value or less than the minimum.
+ *
+ *  @param {Number} i - the basis function to compute (integer, zero-based)
+ *  @param {Number} u - the parameter value
+ *  @param {Number} p - the degree of the B-spline (integer)
+ *  @param {Array|Number} U - the knot vector of the B-spline
+ *
+ *  @returns {Number} - the value of the ith basis function at the given parameter
  */
-module.exports = function getOneBasisFunction (i, u, p, U) {
+var getOneBasisFunction = function getOneBasisFunction (i, u, p, U) {
   var m = U.length - 1;
   var N = new Float64Array(p + 1);
   var j = 0;
@@ -60,3 +60,5 @@ module.exports = function getOneBasisFunction (i, u, p, U) {
   }
   return N[0];
 };
+
+module.exports = getOneBasisFunction;

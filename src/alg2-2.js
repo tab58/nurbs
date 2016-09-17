@@ -2,23 +2,23 @@
 
 var findKnotSpan = require('./alg2-1.js');
 
-/*
+/**
  *  Computes the derivatives for all nonzero basis functions.
  *
- *  @param {Number} u -- the parameter value at which to evaluate the basis function
- *  @param {Number} p -- the degree of the B-spline (integer)
- *  @param {Array|Number} U -- the knot vector of the B-spline
- *  @param {Array|Number} NN -- (optional) an Array(p + 1) that will hold the values
- *
- *  @returns {Array|Number} -- the input parameter NN or a new Float64Array(p + 1)
- *
  *  NOTES:
- *    1. Computes the knot span from the parameter value automatically.
- *    2. Uses 2 new Float64Array(p+1) for intermediate values.
+ *    1. Uses 2 new Float64Array(p+1) for intermediate values.
+ *
+ *  @param {Number} u - the parameter value at which to evaluate the basis function
+ *  @param {Number} p - the degree of the B-spline (integer)
+ *  @param {Array|Number} U - the knot vector of the B-spline
+ *  @param {Array|Number} N - an Array(p+1) that will hold the values
+ *
+ *  @returns {Array|Number} the argument N with the nonzero basis functions
+ *
  */
-module.exports = function getBasisFunctions (u, p, U, NN) {
+var getBasisFunctions = function getBasisFunctions (u, p, U, N) {
   var i = findKnotSpan(p, u, U);
-  var N = NN || new Float64Array(p + 1);
+  // var N = NN || new Float64Array(p + 1);
   var left = new Float64Array(p + 1);
   var right = new Float64Array(p + 1);
   var j = p + 1;
@@ -45,3 +45,5 @@ module.exports = function getBasisFunctions (u, p, U, NN) {
   }
   return N;
 };
+
+module.exports = getBasisFunctions;

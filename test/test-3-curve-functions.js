@@ -3,6 +3,7 @@
 var chai = require('chai');
 var nurbs = require('../index.js');
 var closeTo = require('../lib/closeTo.js');
+var array2d = require('../lib/create2darray.js');
 var glm = require('gl-matrix');
 var autoVecSelect = require('../lib/getAutoVectorType.js');
 
@@ -17,7 +18,10 @@ describe('Curve Function Tests', function () {
       glm.vec2.fromValues(2, 1),
       glm.vec2.fromValues(3, 0)
     ];
-    var C = nurbs.getCurvePoint(u, p, U, P);
+    var N = new Float64Array(p + 1);
+    nurbs.getBasisFunctions(u, p, U, N);
+    var C = glm.vec2.create();
+    nurbs.getCurvePoint(u, p, U, P, N, C);
     var correct = closeTo(C, glm.vec2.fromValues(1.5, 0.75));
     chai.assert(correct, 'Did not find correct nonrational curve point.');
   });
@@ -31,7 +35,13 @@ describe('Curve Function Tests', function () {
       glm.vec2.fromValues(2, 1),
       glm.vec2.fromValues(3, 0)
     ];
-    var C = nurbs.getCurveDerivatives(u, p, U, P, 1);
+    var d = 1;
+    var C = [];
+    var i = 0;
+    for (i = 0; i <= d; ++i) {
+      C.push(glm.vec2.create());
+    }
+    nurbs.getCurveDerivatives(u, p, U, P, d, C);
     var correct = closeTo(C[0], glm.vec2.fromValues(1.5, 0.75));
     chai.assert(correct, 'Did not find correct curve point.');
     correct = closeTo(C[1], glm.vec2.fromValues(3.0, 0.0));
@@ -50,7 +60,8 @@ describe('Curve Function Tests', function () {
     var r1 = 0;
     var r2 = p;
     var d = 1;
-    var PK = nurbs.getCurveDerivCtrlPoints(p, U, P, d, r1, r2);
+    var PK = array2d(d + 1, r2 - r1 + 1, glm.vec2.create);
+    nurbs.getCurveDerivCtrlPoints(p, U, P, d, r1, r2, PK);
 
     var i = 0;
     var vec = autoVecSelect(P[0]);
@@ -79,19 +90,59 @@ describe('Curve Function Tests', function () {
 
     var u = 0.5;
     var d = p;
-    var CK = nurbs.getCurveDerivsAtPoint(p, U[0], P, u, d);
+    var CK = [];
+    var i = p + 1;
+    while (i--) {
+      CK.push(glm.vec2.create());
+    }
+    nurbs.getCurveDerivsAtPoint(p, U[0], P, u, d, CK);
 
     var r1 = 0;
     var r2 = p;
     d = p;
-    var PK = nurbs.getCurveDerivCtrlPoints(p, U[0], P, d, r1, r2);
+    var PK = array2d(d + 1, r2 - r1 + 1, glm.vec2.create);
+    nurbs.getCurveDerivCtrlPoints(p, U[0], P, d, r1, r2, PK);
 
     // compare the values to a curve evaluation of the curve control points
-    var i = 0;
+    i = 0;
+    var C = glm.vec2.create();
+    var N = [0, 0, 0, 0];
     for (i = 0; i <= 2; ++i) {
-      var C = nurbs.getCurvePoint(u, p - i, U[i], PK[i]);
+      nurbs.getBasisFunctions(u, p - i, U[i], N);
+      nurbs.getCurvePoint(u, p - i, U[i], PK[i], N, C);
       var correct = closeTo(C, CK[i]);
       chai.assert(correct, 'Did not find correct value of derivative ' + i + '.');
     }
+  });
+  it('A3.5: Surface Point Evaluation', function () {
+    // Simple Bezier curve derivative test
+    var p = 3;
+    var q = 3;
+    var U = [0, 0, 0, 0, 1, 1, 1, 1];
+    var V = [0, 0, 0, 0, 1, 1, 1, 1];
+    var u = 0.5;
+    var v = 0.5;
+    var P = [
+      [glm.vec3.fromValues(0, 0, 0), glm.vec3.fromValues(1, 0, 0), glm.vec3.fromValues(2, 0, 0), glm.vec3.fromValues(3, 0, 0)],
+      [glm.vec3.fromValues(0, 1, 0), glm.vec3.fromValues(1, 1, 0), glm.vec3.fromValues(2, 1, 0), glm.vec3.fromValues(3, 1, 0)],
+      [glm.vec3.fromValues(0, 2, 0), glm.vec3.fromValues(1, 2, 0), glm.vec3.fromValues(2, 2, 0), glm.vec3.fromValues(3, 2, 0)],
+      [glm.vec3.fromValues(0, 3, 0), glm.vec3.fromValues(1, 3, 0), glm.vec3.fromValues(2, 3, 2), glm.vec3.fromValues(3, 3, 4)]
+    ];
+    var S = glm.vec3.create();
+    nurbs.getSurfacePoint(p, U, q, V, P, u, v, S);
+
+    var S1 = glm.vec3.create();
+    var Nu = [0, 0, 0, 0];
+    nurbs.getBasisFunctions(u, p, U, Nu);
+    var Nv = [0, 0, 0, 0];
+    nurbs.getBasisFunctions(v, q, V, Nv);
+    var i = 0;
+    var temp = glm.vec3.create();
+    for (i = 0; i <= p; ++i) {
+      nurbs.getCurvePoint(v, q, V, P[i], Nv, temp);
+      glm.vec3.scaleAndAdd(S1, S1, temp, Nu[i]);
+    }
+    var correct = closeTo(S, S1);
+    chai.assert(correct, 'Did not find correct value of surface point.');
   });
 });

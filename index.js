@@ -37,6 +37,12 @@ module.exports.getCurveDerivsAtPoint = alg3s4.getCurveDerivsAtPoint;
 module.exports.getCurveDerivsAtPoint2 = alg3s4.getCurveDerivsAtPoint2;
 module.exports.getCurveDerivsAtPoint3 = alg3s4.getCurveDerivsAtPoint3;
 module.exports.getCurveDerivsAtPoint4 = alg3s4.getCurveDerivsAtPoint4;
+// Algorithm A3.5
+var alg3s5 = require('./src/alg3-5.js');
+module.exports.getSurfacePoint = alg3s5.getSurfacePoint;
+module.exports.getSurfacePoint2 = alg3s5.getSurfacePoint2;
+module.exports.getSurfacePoint3 = alg3s5.getSurfacePoint3;
+module.exports.getSurfacePoint4 = alg3s5.getSurfacePoint4;
 
 // Algorithm A4.1
 var alg4s1 = require('./src/alg4-1.js');

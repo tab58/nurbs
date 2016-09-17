@@ -2,24 +2,24 @@
 
 var array2d = require('../lib/create2darray.js');
 
-/*
+/**
  *  Computes the derivatives for a single basis function.
- *
- *  @param {Number} i -- the ith basis function (integer, zero-based)
- *  @param {Number} u -- the parameter value at which to evaluate the basis function
- *  @param {Number} p -- the degree of the B-spline (integer)
- *  @param {Array|Number} U -- the knot vector of the B-spline
- *  @param {Number} n -- the number of derivatives to evaluate (integer, n <= p)
- *  @param {Array|Number} D -- holds the derivatives of the ith basis function.
- *
- *  @returns {Array|Number} -- the input parameter D, or a Float64Array(n + 1) with the derivative info
  *
  *  NOTES:
  *    1. Computes the full triangular table for nonzero basis functions.
- *    2. Computes intermediate values in 1 Float64Array[p + 1][p + 1] and 1 Float64Array[p + 1]
+ *    2. Computes intermediate values in 1 Float64Array[p+1][p+1] and 1 Float64Array[p+1]
+ *
+ *  @param {Number} i - the ith basis function (integer, zero-based)
+ *  @param {Number} u - the parameter value at which to evaluate the basis function
+ *  @param {Number} p - the degree of the B-spline (integer)
+ *  @param {Array|Number} U - the knot vector of the B-spline
+ *  @param {Number} n - the number of derivatives to evaluate (integer, n <= p)
+ *  @param {Array|Number} D - an Array(n+1) that holds the derivatives of the ith basis function.
+ *
+ *  @returns {Array|Number} - the input parameter D
  */
-module.exports = function getDerivs1BasisFunc (i, u, p, U, n, D) {
-  var ders = D || new Float64Array(n + 1);
+var getDerivsOf1BasisFunction = function getDerivsOf1BasisFunction (i, u, p, U, n, D) {
+  var ders = D;
   var j = 0;
   var jj = 0;
   var k = 0;
@@ -88,3 +88,5 @@ module.exports = function getDerivs1BasisFunc (i, u, p, U, n, D) {
   }
   return ders;
 };
+
+module.exports = getDerivsOf1BasisFunction;

@@ -27,7 +27,8 @@ describe('Rational Curve Function Tests', function () {
       ww,
       1
     ];
-    var C = nurbs.getRationalCurvePoint(u, p, U, P, W);
+    var C = glm.vec2.create();
+    nurbs.getRationalCurvePoint(u, p, U, P, W, C);
     var correct = closeTo(C, glm.vec2.fromValues(sq2, sq2));
     chai.assert(correct, 'Did not find correct rational curve point: tolerance ');
   });

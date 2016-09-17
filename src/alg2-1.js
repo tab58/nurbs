@@ -1,19 +1,20 @@
 'use strict';
 
-/*
- *  Computes the knot span, or the knot vector index that satisfies u_i <= u < u_{i+1}.
- *
- *  @param {Number} u -- the parameter value
- *  @param {Number} p -- the degree of the B-spline (integer)
- *  @param {Array|Number} U -- the knot vector of the B-spline
- *
- *  @returns {Number} -- the knot span for the parameter value (integer)
+/**
+ *  Computes the knot span, or the knot vector index that satisfies u<sub>i</sub> <= u < u<sub>i+1</sub>.
  *
  *  NOTES:
  *    1. Does no checks if the parameter value is greater than the maximum
  *       knot vector value or less than the minimum.
+ *
+ *  @param {Number} p - the degree of the B-spline (integer)
+ *  @param {Number} u - the parameter value
+ *  @param {Array|Number} U - the knot vector of the B-spline
+ *
+ *  @returns {Number} - the knot span for the parameter value (integer)
+ *
  */
-module.exports = function findKnotSpan (p, u, U) {
+var findKnotSpan = function findKnotSpan (p, u, U) {
   var n = U.length - p - 1;
   if (u === U[n + 1]) {
     return n;
@@ -31,3 +32,5 @@ module.exports = function findKnotSpan (p, u, U) {
   }
   return mid;
 };
+
+module.exports = findKnotSpan;

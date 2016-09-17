@@ -4,7 +4,8 @@
   "description": "Javascript library for non-uniform rational B-splines (NURBS)",
   "main": "index.js",
   "scripts": {
-    "test": "semistandard --verbose | snazzy && mocha test/*.js"
+    "test": "semistandard --verbose | snazzy && mocha test/*.js",
+    "doc": "jsdoc index.js -c ./jsdoc-conf.json"
   },
   "repository": {
     "type": "git",
@@ -24,14 +25,17 @@
   "homepage": "https://github.com/tab58/nurbs#readme",
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^2.4.5",
-    "semistandard": "^7.0.5"
+    "mocha": "^2.4.5"
   },
   "semistandard": {
     "globals": [
       "describe",
       "it",
       "beforeEach"
+    ],
+    "ignore": [
+      "/node_modules/",
+      "/doc/"
     ]
   },
   "dependencies": {
