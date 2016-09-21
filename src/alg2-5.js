@@ -1,6 +1,6 @@
 'use strict';
 
-var array2d = require('../lib/create2darray.js');
+var array2d = require('../lib/create2dArray.js');
 
 /**
  *  Computes the derivatives for a single basis function.

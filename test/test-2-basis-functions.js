@@ -3,7 +3,7 @@
 var chai = require('chai');
 var nurbs = require('../index.js');
 var closeTo = require('../lib/closeTo.js');
-var array2d = require('../lib/create2darray.js');
+var array2d = require('../lib/create2dArray.js');
 
 describe('Basis Function Tests', function () {
   it('A2.1: Find Knot Span', function () {

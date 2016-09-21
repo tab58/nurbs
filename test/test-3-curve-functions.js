@@ -3,7 +3,8 @@
 var chai = require('chai');
 var nurbs = require('../index.js');
 var closeTo = require('../lib/closeTo.js');
-var array2d = require('../lib/create2darray.js');
+// var array1d = require('../lib/create1dArray.js');
+var array2d = require('../lib/create2dArray.js');
 var glm = require('gl-matrix');
 var autoVecSelect = require('../lib/getAutoVectorType.js');
 
@@ -115,7 +116,6 @@ describe('Curve Function Tests', function () {
     }
   });
   it('A3.5: Surface Point Evaluation', function () {
-    // Simple Bezier curve derivative test
     var p = 3;
     var q = 3;
     var U = [0, 0, 0, 0, 1, 1, 1, 1];
@@ -144,5 +144,67 @@ describe('Curve Function Tests', function () {
     }
     var correct = closeTo(S, S1);
     chai.assert(correct, 'Did not find correct value of surface point.');
+  });
+  it('A3.6: Calculate Surface Partial Derivatives', function () {
+    // basically an extruded parabola
+    // univariate parabola: [ -2, 4 ],[ -1, 0 ],[ 0, -1.333 ],[ 1, 0 ],[ 2, 4 ]
+    var p = 4;
+    var q = 4;
+    var U = [0, 0, 0, 0, 0, 1, 1, 1, 1, 1];
+    var V = [0, 0, 0, 0, 0, 1, 1, 1, 1, 1];
+    var Pu0 = [
+      glm.vec3.fromValues(-2, -2, 4),
+      glm.vec3.fromValues(-1, -2, 0),
+      glm.vec3.fromValues(0, -2, -4 / 3),
+      glm.vec3.fromValues(1, -2, 0),
+      glm.vec3.fromValues(2, -2, 4)
+    ];
+    var Pu1 = [
+      glm.vec3.fromValues(-2, -1, 4),
+      glm.vec3.fromValues(-1, -1, 0),
+      glm.vec3.fromValues(0, -1, -4 / 3),
+      glm.vec3.fromValues(1, -1, 0),
+      glm.vec3.fromValues(2, -1, 4)
+    ];
+    var Pu2 = [
+      glm.vec3.fromValues(-2, 0, 4),
+      glm.vec3.fromValues(-1, 0, 0),
+      glm.vec3.fromValues(0, 0, -4 / 3),
+      glm.vec3.fromValues(1, 0, 0),
+      glm.vec3.fromValues(2, 0, 4)
+    ];
+    var Pu3 = [
+      glm.vec3.fromValues(-2, 1, 4),
+      glm.vec3.fromValues(-1, 1, 0),
+      glm.vec3.fromValues(0, 1, -4 / 3),
+      glm.vec3.fromValues(1, 1, 0),
+      glm.vec3.fromValues(2, 1, 4)
+    ];
+    var Pu4 = [
+      glm.vec3.fromValues(-2, 2, 4),
+      glm.vec3.fromValues(-1, 2, 0),
+      glm.vec3.fromValues(0, 2, -4 / 3),
+      glm.vec3.fromValues(1, 2, 0),
+      glm.vec3.fromValues(2, 2, 4)
+    ];
+    var P = [
+      Pu0,
+      Pu1,
+      Pu2,
+      Pu3,
+      Pu4
+    ];
+    var u = 0.5;
+    var v = 0.75;
+    var d = 1;
+    var SKL = array2d(d + 1, d + 1, glm.vec3.create);
+    nurbs.getSurfacePartialDerivsAtPoint(p, U, q, V, P, u, v, d, SKL);
+
+    var correct = closeTo(SKL[0][1], glm.vec3.fromValues(4, 0, 8));
+    chai.assert(correct, 'Did not find dS/du.');
+    correct = closeTo(SKL[1][0], glm.vec3.fromValues(0, 4, 0));
+    chai.assert(correct, 'Did not find dS/dv.');
+    correct = closeTo(SKL[1][1], glm.vec3.fromValues(0, 0, 0));
+    chai.assert(correct, 'Did not find d2S/dudv.');
   });
 });

@@ -43,6 +43,12 @@ module.exports.getSurfacePoint = alg3s5.getSurfacePoint;
 module.exports.getSurfacePoint2 = alg3s5.getSurfacePoint2;
 module.exports.getSurfacePoint3 = alg3s5.getSurfacePoint3;
 module.exports.getSurfacePoint4 = alg3s5.getSurfacePoint4;
+// Algorithm A3.6
+var alg3s6 = require('./src/alg3-6.js');
+module.exports.getSurfacePartialDerivsAtPoint = alg3s6.getSurfacePartialDerivsAtPoint;
+module.exports.getSurfacePartialDerivsAtPoint2 = alg3s6.getSurfacePartialDerivsAtPoint2;
+module.exports.getSurfacePartialDerivsAtPoint3 = alg3s6.getSurfacePartialDerivsAtPoint3;
+module.exports.getSurfacePartialDerivsAtPoint4 = alg3s6.getSurfacePartialDerivsAtPoint4;
 
 // Algorithm A4.1
 var alg4s1 = require('./src/alg4-1.js');

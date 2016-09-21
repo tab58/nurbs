@@ -2792,6 +2792,375 @@ knot vector value or less than the minimum.</li>
 
     
 
+    <h4 class="name" id="getSurfacePartialDerivsAtPoint"><span class="type-signature"></span>getSurfacePartialDerivsAtPoint<span class="signature">(p, U, q, V, P, u, v, d, SKL)</span><span class="type-signature"> &rarr; {Array|vec(2,3,4)}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Computes the partial derivatives of the surface.</p>
+<p> NOTES:</p>
+<ol>
+<li>The element P[i][j] is the derivative of the surface with respect to u <em>i</em> times
+and with respect to v <em>j</em> times.</li>
+<li>With the above definition of P[i][j], 0 &lt;= i + j &lt;= d.</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>p</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the degree of the surface in the u-direction</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>U</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+|
+
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the knot vector in the u-direction</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>q</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the degree of the surface in the v-direction</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>V</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+|
+
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the knot vector in the v-direction</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>P</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+|
+
+<span class="param-type">vec(2,3,4)</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the control points of the surface</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>u</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the u parameter at which the derivatives are to be evaluated</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>v</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the v parameter at which the derivatives are to be evaluated</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>d</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the maximum order of the derivatives</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>SKL</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+|
+
+<span class="param-type">vec(2,3,4)</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the output array to hold the partial derivatives</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="alg3-6.js.html">alg3-6.js</a>, <a href="alg3-6.js.html#line78">line 78</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li>the input parameter SKL</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array</span>
+|
+
+<span class="param-type">vec(2,3,4)</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
     <h4 class="name" id="getSurfacePoint"><span class="type-signature"></span>getSurfacePoint<span class="signature">(p, U, q, V, P, u, v)</span><span class="type-signature"> &rarr; {vec(2,3,4)}</span></h4>
 
     
@@ -3111,13 +3480,13 @@ knot vector value or less than the minimum.</li>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#findKnotSpan">findKnotSpan</a></li><li><a href="global.html#getBasisFunctions">getBasisFunctions</a></li><li><a href="global.html#getCurveDerivatives">getCurveDerivatives</a></li><li><a href="global.html#getCurveDerivCtrlPoints">getCurveDerivCtrlPoints</a></li><li><a href="global.html#getCurveDerivsAtPoint">getCurveDerivsAtPoint</a></li><li><a href="global.html#getCurvePoint">getCurvePoint</a></li><li><a href="global.html#getDerivsOf1BasisFunction">getDerivsOf1BasisFunction</a></li><li><a href="global.html#getDerivsOfBasisFunctions">getDerivsOfBasisFunctions</a></li><li><a href="global.html#getOneBasisFunction">getOneBasisFunction</a></li><li><a href="global.html#getRationalCurvePoint">getRationalCurvePoint</a></li><li><a href="global.html#getSurfacePoint">getSurfacePoint</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#findKnotSpan">findKnotSpan</a></li><li><a href="global.html#getBasisFunctions">getBasisFunctions</a></li><li><a href="global.html#getCurveDerivatives">getCurveDerivatives</a></li><li><a href="global.html#getCurveDerivCtrlPoints">getCurveDerivCtrlPoints</a></li><li><a href="global.html#getCurveDerivsAtPoint">getCurveDerivsAtPoint</a></li><li><a href="global.html#getCurvePoint">getCurvePoint</a></li><li><a href="global.html#getDerivsOf1BasisFunction">getDerivsOf1BasisFunction</a></li><li><a href="global.html#getDerivsOfBasisFunctions">getDerivsOfBasisFunctions</a></li><li><a href="global.html#getOneBasisFunction">getOneBasisFunction</a></li><li><a href="global.html#getRationalCurvePoint">getRationalCurvePoint</a></li><li><a href="global.html#getSurfacePartialDerivsAtPoint">getSurfacePartialDerivsAtPoint</a></li><li><a href="global.html#getSurfacePoint">getSurfacePoint</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.1</a> on Fri Sep 16 2016 22:46:44 GMT-0700 (PDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.1</a> on Tue Sep 20 2016 21:33:20 GMT-0700 (PDT)
 </footer>
 
 <script> prettyPrint(); </script>

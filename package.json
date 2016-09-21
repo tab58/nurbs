@@ -4,7 +4,7 @@
   "description": "Javascript library for non-uniform rational B-splines (NURBS)",
   "main": "index.js",
   "scripts": {
-    "test": "semistandard --verbose | snazzy && mocha test/*.js",
+    "test": "semistandard --verbose | snazzy && ./node_modules/mocha/bin/mocha test/*.js",
     "doc": "jsdoc index.js -c ./jsdoc-conf.json"
   },
   "repository": {

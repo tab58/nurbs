@@ -1,7 +1,7 @@
 'use strict';
 
 var glm = require('gl-matrix');
-var array2d = require('../lib/create2darray.js');
+var array2d = require('../lib/create2dArray.js');
 var getAutoVectorType = require('../lib/getAutoVectorType.js');
 var findKnotSpan = require('./alg2-1.js');
 var curveDerivCpts = require('./alg3-3.js').getCurveDerivCtrlPointsGeneric;
