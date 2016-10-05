@@ -1,10 +1,8 @@
 'use strict';
 
-var glm = require('gl-matrix');
 var array2d = require('../lib/create2dArray.js');
-var getAutoVectorType = require('../lib/getAutoVectorType.js');
 var findKnotSpan = require('./alg2-1.js');
-var curveDerivCpts = require('./alg3-3.js').getCurveDerivCtrlPointsGeneric;
+var curveDerivCpts = require('./alg3-3.js');
 
 /*
  *  Returns a 2D array with all nonzero basis functions for degrees 0 -> p.
@@ -66,35 +64,4 @@ var getCurveDerivsAtPointGeneric = function getCurveDerivsAtPointGeneric (p, U, 
   return CK;
 };
 
-/**
- *  Computes the derivatives for the curve at a specific parameter value.
- *
- *  NOTES:
- *      1. This calls 'getCurveDerivCtrlPoints' to evaluate the control points.
- *
- *  @param {Number} p - the degree of the B-spline (integer)
- *  @param {Array|Number} U - the knot vector of the B-spline
- *  @param {Array|vec(2,3,4)} P - the 2D control points
- *  @param {Number} u - the parameter value at which to evaluate the basis function
- *  @param {Number} d - the number of derivatives to evaluate (integer, d <= p)
- *  @param {Array|vec(2,3,4)} CK - an Array(d+1) of vec(2,3,4), the values of the derivatives at the parameter value
- */
-
-var getCurveDerivsAtPoint = function getCurveDerivsAtPoint (p, U, P, u, d, CK) {
-  var vec = getAutoVectorType(P[0]);
-  return getCurveDerivsAtPointGeneric(p, U, P, u, d, CK, vec);
-};
-
-module.exports = {
-  getCurveDerivsAtPoint: getCurveDerivsAtPoint,
-  getCurveDerivsAtPoint2: function getCurveDerivsAtPoint2 (p, U, P, u, d, CK) {
-    return getCurveDerivsAtPointGeneric(p, U, P, u, d, CK, glm.vec2);
-  },
-  getCurveDerivsAtPoint3: function getCurveDerivsAtPoint3 (p, U, P, u, d, CK) {
-    return getCurveDerivsAtPointGeneric(p, U, P, u, d, CK, glm.vec3);
-  },
-  getCurveDerivsAtPoint4: function getCurveDerivsAtPoint4 (p, U, P, u, d, CK) {
-    return getCurveDerivsAtPointGeneric(p, U, P, u, d, CK, glm.vec4);
-  },
-  getCurveDerivsAtPointGeneric: getCurveDerivsAtPointGeneric
-};
+module.exports = getCurveDerivsAtPointGeneric;

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: src/alg1-2.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,135 +17,45 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: src/alg1-2.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
 
+/**
+ *  Computes the ith Bernstein basis function at the parameter value.
+ *
+ *  @param {Array|Number} i - the Bernstein basis function to evaluate
+ *  @param {Number} n - the degree of the Bernstein basis functions
+ *  @param {Number} u - the parameter value, 0 &lt;= u &lt;= 1
+ *
+ *  @returns {Number} - the Bernstein basis function value at the parameter value
+ *
+ */
+var getOneBernsteinFunc = function getOneBernsteinFunc (i, n, u) {
+  var j = 0;
+  var k = 0;
+  var temp = new Float64Array(n + 1);
+  temp[n - i] = 1.0;
+  var v = 1.0 - u;
+  for (k = 1; k &lt;= n; ++k) {
+    for (j = n; j >= k; --j) {
+      temp[j] = v * temp[j] + u * temp[j - 1];
+    }
+  }
+  return temp[n];
+};
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-<section>
-
-<header>
-    
-        <h2>nurbs.js</h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>A library for functions to create and modify NURBS curves and surfaces.
- The primary focus is on performance. Thus, objects must be allocated as needed.</p>
-<p> The top level NURBS object is exported when the package is called with require().
- Each file in the ./src/ directory can be individually called with require() as well,
- but must be provided with an object that contains vector operation functions, such as vec.subtract()
- or vec.scaleAndAdd(). These must contain the same functions as the vecX object in the npm package 'gl-matrix'.</p>
-<p> For convenience, the objects NURBS.vec2, NURBS.vec3, and NURBS.vec4 are automatically configured to use the
- vec2, vec3, and vec4 objects from from the 'gl-matrix' package, respectively. The generic functions used in the
- top-level NURBS library will try to guess by reading the length of the first element of the control point data,
- and use the vec2, vec3, and vec4 objects for those functions. This check is performed at every invocation of the
- generic functions, however any calls to other functions are passed the vecX object determined at the check. The
- generic functions are provided for ease of use, but are generally not recommended for performance reasons.</p>
-<p> The algorithms are based on the pseudocode found in The NURBS Book, by Piegl and Tiller.</p></div>
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="nurbs.js.html">nurbs.js</a>, <a href="nurbs.js.html#line9">line 9</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+module.exports = getOneBernsteinFunc;
+</code></pre>
+        </article>
+    </section>
 
 
 

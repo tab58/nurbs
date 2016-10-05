@@ -101,6 +101,414 @@
 
     
 
+    <h4 class="name" id="evaluateBezierCurve"><span class="type-signature"></span>evaluateBezierCurve<span class="signature">(P, n, u, C)</span><span class="type-signature"> &rarr; {vec(2,3,4)}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Evaluate the Berzier curve at the parameter value.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>P</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+|
+
+<span class="param-type">vec(2,3,4)</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the control point of the curve</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>n</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the degree of the Bernstein basis functions</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>u</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the parameter value, 0 &lt;= u &lt;= 1</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>C</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">vec(2,3,4)</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the evaluated curve</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="nurbs.js.html">nurbs.js</a>, <a href="nurbs.js.html#line63">line 63</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li>the input parameter C</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">vec(2,3,4)</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="evaluatePowerBasis"><span class="type-signature"></span>evaluatePowerBasis<span class="signature">(a, u)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Computes the point on a power basis curve.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>a</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+|
+
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the coefficients of the power basis (a<sub>0</sub> + a<sub>1</sub>u +...+ a<sub>n</sub>u<sup>n</sup>)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>u</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the parameter value at which to evaluate the curve</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="src_alg1-1.js.html">src/alg1-1.js</a>, <a href="src_alg1-1.js.html#line12">line 12</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li>the function value at the parameter value</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
     <h4 class="name" id="findKnotSpan"><span class="type-signature"></span>findKnotSpan<span class="signature">(p, u, U)</span><span class="type-signature"> &rarr; {Number}</span></h4>
 
     
@@ -255,7 +663,7 @@ knot vector value or less than the minimum.</li>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="alg2-1.js.html">alg2-1.js</a>, <a href="alg2-1.js.html#line17">line 17</a>
+        <a href="src_alg2-1.js.html">src/alg2-1.js</a>, <a href="src_alg2-1.js.html#line17">line 17</a>
     </li></ul></dd>
     
 
@@ -284,6 +692,184 @@ knot vector value or less than the minimum.</li>
 <div class="param-desc">
     <ul>
 <li>the knot span for the parameter value (integer)</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getAllBernsteinFuncs"><span class="type-signature"></span>getAllBernsteinFuncs<span class="signature">(n, u)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Computes all the Bernstein basis functions at the parameter value.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>n</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the degree of the Bernstein basis functions</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>u</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the parameter value, 0 &lt;= u &lt;= 1</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="src_alg1-3.js.html">src/alg1-3.js</a>, <a href="src_alg1-3.js.html#line12">line 12</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li>the Bernstein basis functions at the parameter value</li>
 </ul>
 </div>
 
@@ -489,7 +1075,7 @@ knot vector value or less than the minimum.</li>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="alg2-2.js.html">alg2-2.js</a>, <a href="alg2-2.js.html#line19">line 19</a>
+        <a href="src_alg2-2.js.html">src/alg2-2.js</a>, <a href="src_alg2-2.js.html#line19">line 19</a>
     </li></ul></dd>
     
 
@@ -773,7 +1359,7 @@ knot vector value or less than the minimum.</li>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="alg3-2.js.html">alg3-2.js</a>, <a href="alg3-2.js.html#line41">line 41</a>
+        <a href="nurbs.js.html">nurbs.js</a>, <a href="nurbs.js.html#line156">line 156</a>
     </li></ul></dd>
     
 
@@ -1078,7 +1664,7 @@ knot vector value or less than the minimum.</li>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="alg3-3.js.html">alg3-3.js</a>, <a href="alg3-3.js.html#line40">line 40</a>
+        <a href="nurbs.js.html">nurbs.js</a>, <a href="nurbs.js.html#line185">line 185</a>
     </li></ul></dd>
     
 
@@ -1362,7 +1948,7 @@ knot vector value or less than the minimum.</li>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="alg3-4.js.html">alg3-4.js</a>, <a href="alg3-4.js.html#line83">line 83</a>
+        <a href="nurbs.js.html">nurbs.js</a>, <a href="nurbs.js.html#line214">line 214</a>
     </li></ul></dd>
     
 
@@ -1677,7 +2263,7 @@ knot vector value or less than the minimum.</li>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="alg3-1.js.html">alg3-1.js</a>, <a href="alg3-1.js.html#line35">line 35</a>
+        <a href="nurbs.js.html">nurbs.js</a>, <a href="nurbs.js.html#line125">line 125</a>
     </li></ul></dd>
     
 
@@ -1958,7 +2544,7 @@ knot vector value or less than the minimum.</li>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="alg2-5.js.html">alg2-5.js</a>, <a href="alg2-5.js.html#line21">line 21</a>
+        <a href="src_alg2-5.js.html">src/alg2-5.js</a>, <a href="src_alg2-5.js.html#line21">line 21</a>
     </li></ul></dd>
     
 
@@ -2220,7 +2806,7 @@ and 1 Array[2][p+1]</li>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="alg2-3.js.html">alg2-3.js</a>, <a href="alg2-3.js.html#line23">line 23</a>
+        <a href="src_alg2-3.js.html">src/alg2-3.js</a>, <a href="src_alg2-3.js.html#line23">line 23</a>
     </li></ul></dd>
     
 
@@ -2453,7 +3039,7 @@ knot vector value or less than the minimum.</li>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="alg2-4.js.html">alg2-4.js</a>, <a href="alg2-4.js.html#line17">line 17</a>
+        <a href="src_alg2-4.js.html">src/alg2-4.js</a>, <a href="src_alg2-4.js.html#line17">line 17</a>
     </li></ul></dd>
     
 
@@ -2498,6 +3084,355 @@ knot vector value or less than the minimum.</li>
 
     </dd>
 </dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getOneBernsteinFunc"><span class="type-signature"></span>getOneBernsteinFunc<span class="signature">(i, n, u)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Computes the ith Bernstein basis function at the parameter value.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>i</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+|
+
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the Bernstein basis function to evaluate</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>n</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the degree of the Bernstein basis functions</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>u</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the parameter value, 0 &lt;= u &lt;= 1</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="src_alg1-2.js.html">src/alg1-2.js</a>, <a href="src_alg1-2.js.html#line13">line 13</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li>the Bernstein basis function value at the parameter value</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getRationalCurveDerivAtPoint"><span class="type-signature"></span>getRationalCurveDerivAtPoint<span class="signature">(P)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Computes the derivatives of a point on a rational B-spline curve at the desired parameter value.</p>
+<p> NOTES:</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>P</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+|
+
+<span class="param-type">vec(2,3,4)</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the control point array for the curve</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="nurbs.js.html">nurbs.js</a>, <a href="nurbs.js.html#line379">line 379</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>-</p>
+</div>
+
+
 
     
 
@@ -2737,7 +3672,7 @@ knot vector value or less than the minimum.</li>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="alg4-1.js.html">alg4-1.js</a>, <a href="alg4-1.js.html#line51">line 51</a>
+        <a href="nurbs.js.html">nurbs.js</a>, <a href="nurbs.js.html#line353">line 353</a>
     </li></ul></dd>
     
 
@@ -2792,6 +3727,479 @@ knot vector value or less than the minimum.</li>
 
     
 
+    <h4 class="name" id="getSurfaceDerivCtrlPoints"><span class="type-signature"></span>getSurfaceDerivCtrlPoints<span class="signature">(p, U, q, V, P, u, v, d, r1, r2, s1, s2, PKL)</span><span class="type-signature"> &rarr; {Array|vec(2,3,4)}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Computes the control points in a specific region for the partial derivatives of the surface.</p>
+<p> NOTES:</p>
+<ol>
+<li>The element PKL[k][l][i][j] is (i,j)th control point of the derivative of the surface
+with respect to u <em>k</em> times and with respect to v <em>l</em> times.</li>
+<li>With the above definition of PKL[i][j], 0 &lt;= k + l &lt;= d.</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>p</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the degree of the surface in the u-direction</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>U</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+|
+
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the knot vector in the u-direction</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>q</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the degree of the surface in the v-direction</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>V</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+|
+
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the knot vector in the v-direction</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>P</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+|
+
+<span class="param-type">vec(2,3,4)</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the control points of the surface</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>u</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the u parameter at which the derivatives are to be evaluated</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>v</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the v parameter at which the derivatives are to be evaluated</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>d</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the maximum order of the derivatives</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>r1</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the start of the u-direction control point calculation region</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>r2</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the end of the u-direction control point calculation region</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>s1</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the start of the v-direction control point calculation region</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>s2</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the end of the v-direction control point calculation region</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>PKL</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+|
+
+<span class="param-type">vec(2,3,4)</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the output array to hold the partial derivatives</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="nurbs.js.html">nurbs.js</a>, <a href="nurbs.js.html#line319">line 319</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <ul>
+<li>the input parameter SKL</li>
+</ul>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array</span>
+|
+
+<span class="param-type">vec(2,3,4)</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
     <h4 class="name" id="getSurfacePartialDerivsAtPoint"><span class="type-signature"></span>getSurfacePartialDerivsAtPoint<span class="signature">(p, U, q, V, P, u, v, d, SKL)</span><span class="type-signature"> &rarr; {Array|vec(2,3,4)}</span></h4>
 
     
@@ -2802,9 +4210,9 @@ knot vector value or less than the minimum.</li>
     <p>Computes the partial derivatives of the surface.</p>
 <p> NOTES:</p>
 <ol>
-<li>The element P[i][j] is the derivative of the surface with respect to u <em>i</em> times
+<li>The element SKL[i][j] is the derivative of the surface with respect to u <em>i</em> times
 and with respect to v <em>j</em> times.</li>
-<li>With the above definition of P[i][j], 0 &lt;= i + j &lt;= d.</li>
+<li>With the above definition of SKL[i][j], 0 &lt;= i + j &lt;= d.</li>
 </ol>
 </div>
 
@@ -3103,7 +4511,7 @@ and with respect to v <em>j</em> times.</li>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="alg3-6.js.html">alg3-6.js</a>, <a href="alg3-6.js.html#line78">line 78</a>
+        <a href="nurbs.js.html">nurbs.js</a>, <a href="nurbs.js.html#line279">line 279</a>
     </li></ul></dd>
     
 
@@ -3414,7 +4822,7 @@ and with respect to v <em>j</em> times.</li>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="alg3-5.js.html">alg3-5.js</a>, <a href="alg3-5.js.html#line53">line 53</a>
+        <a href="nurbs.js.html">nurbs.js</a>, <a href="nurbs.js.html#line243">line 243</a>
     </li></ul></dd>
     
 
@@ -3480,13 +4888,13 @@ and with respect to v <em>j</em> times.</li>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#findKnotSpan">findKnotSpan</a></li><li><a href="global.html#getBasisFunctions">getBasisFunctions</a></li><li><a href="global.html#getCurveDerivatives">getCurveDerivatives</a></li><li><a href="global.html#getCurveDerivCtrlPoints">getCurveDerivCtrlPoints</a></li><li><a href="global.html#getCurveDerivsAtPoint">getCurveDerivsAtPoint</a></li><li><a href="global.html#getCurvePoint">getCurvePoint</a></li><li><a href="global.html#getDerivsOf1BasisFunction">getDerivsOf1BasisFunction</a></li><li><a href="global.html#getDerivsOfBasisFunctions">getDerivsOfBasisFunctions</a></li><li><a href="global.html#getOneBasisFunction">getOneBasisFunction</a></li><li><a href="global.html#getRationalCurvePoint">getRationalCurvePoint</a></li><li><a href="global.html#getSurfacePartialDerivsAtPoint">getSurfacePartialDerivsAtPoint</a></li><li><a href="global.html#getSurfacePoint">getSurfacePoint</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#evaluateBezierCurve">evaluateBezierCurve</a></li><li><a href="global.html#evaluatePowerBasis">evaluatePowerBasis</a></li><li><a href="global.html#findKnotSpan">findKnotSpan</a></li><li><a href="global.html#getAllBernsteinFuncs">getAllBernsteinFuncs</a></li><li><a href="global.html#getBasisFunctions">getBasisFunctions</a></li><li><a href="global.html#getCurveDerivatives">getCurveDerivatives</a></li><li><a href="global.html#getCurveDerivCtrlPoints">getCurveDerivCtrlPoints</a></li><li><a href="global.html#getCurveDerivsAtPoint">getCurveDerivsAtPoint</a></li><li><a href="global.html#getCurvePoint">getCurvePoint</a></li><li><a href="global.html#getDerivsOf1BasisFunction">getDerivsOf1BasisFunction</a></li><li><a href="global.html#getDerivsOfBasisFunctions">getDerivsOfBasisFunctions</a></li><li><a href="global.html#getOneBasisFunction">getOneBasisFunction</a></li><li><a href="global.html#getOneBernsteinFunc">getOneBernsteinFunc</a></li><li><a href="global.html#getRationalCurveDerivAtPoint">getRationalCurveDerivAtPoint</a></li><li><a href="global.html#getRationalCurvePoint">getRationalCurvePoint</a></li><li><a href="global.html#getSurfaceDerivCtrlPoints">getSurfaceDerivCtrlPoints</a></li><li><a href="global.html#getSurfacePartialDerivsAtPoint">getSurfacePartialDerivsAtPoint</a></li><li><a href="global.html#getSurfacePoint">getSurfacePoint</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.1</a> on Tue Sep 20 2016 21:33:20 GMT-0700 (PDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.1</a> on Tue Oct 04 2016 22:04:28 GMT-0700 (PDT)
 </footer>
 
 <script> prettyPrint(); </script>

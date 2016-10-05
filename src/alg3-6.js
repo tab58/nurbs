@@ -1,13 +1,11 @@
 'use strict';
 
-var glm = require('gl-matrix');
-var getAutoVectorType = require('../lib/getAutoVectorType.js');
 var array1d = require('../lib/create1dArray.js');
 var array2d = require('../lib/create2dArray.js');
 var findKnotSpan = require('./alg2-1.js');
 var getDerivsOfBasisFunctions = require('./alg2-3.js');
 
-var getSurfPartialDerivsGeneric = function getSurfacePartialDerivsAtPointGeneric (p, U, q, V, P, u, v, d, SKL, vec) {
+var getSurfacePartialDerivsAtPointGeneric = function getSurfacePartialDerivsAtPointGeneric (p, U, q, V, P, u, v, d, SKL, vec) {
   var k = 0;
   var l = 0;
   var s = 0;
@@ -55,41 +53,4 @@ var getSurfPartialDerivsGeneric = function getSurfacePartialDerivsAtPointGeneric
   return SKL;
 };
 
-/**
- *  Computes the partial derivatives of the surface.
- *
- *  NOTES:
- *    1. The element P[i][j] is the derivative of the surface with respect to u _i_ times
- *       and with respect to v _j_ times.
- *    2. With the above definition of P[i][j], 0 <= i + j <= d.
- *
- *  @param {Number|int} p - the degree of the surface in the u-direction
- *  @param {Array|Number} U - the knot vector in the u-direction
- *  @param {Number|int} q - the degree of the surface in the v-direction
- *  @param {Array|Number} V - the knot vector in the v-direction
- *  @param {Array|vec(2,3,4)} P - the control points of the surface
- *  @param {Number} u - the u parameter at which the derivatives are to be evaluated
- *  @param {Number} v - the v parameter at which the derivatives are to be evaluated
- *  @param {Number|int} d - the maximum order of the derivatives
- *  @param {Array|vec(2,3,4)} SKL - the output array to hold the partial derivatives
- *
- *  @returns {Array|vec(2,3,4)} - the input parameter SKL
- */
-var getSurfacePartialDerivsAtPoint = function getSurfacePartialDerivsAtPoint (p, U, q, V, P, u, v, d, SKL) {
-  var vec = getAutoVectorType(P[0][0]);
-  return getSurfPartialDerivsGeneric(p, U, q, V, P, u, v, d, SKL, vec);
-};
-
-module.exports = {
-  getSurfacePartialDerivsAtPoint: getSurfacePartialDerivsAtPoint,
-  getSurfacePartialDerivsAtPoint2: function getSurfacePartialDerivsAtPoint2 (p, U, q, V, P, u, v, d, SKL) {
-    return getSurfPartialDerivsGeneric(p, U, q, V, P, u, v, d, SKL, glm.vec2);
-  },
-  getSurfacePartialDerivsAtPoint3: function getSurfacePartialDerivsAtPoint3 (p, U, q, V, P, u, v, d, SKL) {
-    return getSurfPartialDerivsGeneric(p, U, q, V, P, u, v, d, SKL, glm.vec3);
-  },
-  getSurfacePartialDerivsAtPoint4: function getSurfacePartialDerivsAtPoint4 (p, U, q, V, P, u, v, d, SKL) {
-    return getSurfPartialDerivsGeneric(p, U, q, V, P, u, v, d, SKL, glm.vec4);
-  },
-  getSurfacePartialDerivsAtPointGeneric: getSurfPartialDerivsGeneric
-};
+module.exports = getSurfacePartialDerivsAtPointGeneric;

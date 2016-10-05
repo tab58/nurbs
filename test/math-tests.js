@@ -1,13 +1,119 @@
 'use strict';
 
-var chai = require('chai');
-var nurbs = require('../index.js');
-var closeTo = require('../lib/closeTo.js');
-// var array1d = require('../lib/create1dArray.js');
-var array2d = require('../lib/create2dArray.js');
-var glm = require('gl-matrix');
-var autoVecSelect = require('../lib/getAutoVectorType.js');
+const chai = require('chai');
+const nurbs = require('../nurbs.js');
+const closeTo = require('../lib/closeTo.js');
+const array2d = require('../lib/create2dArray.js');
+const glm = require('gl-matrix');
+const autoVecSelect = require('../lib/getAutoVectorType.js');
 
+describe('Bezier and Power Basis Function Tests', function () {
+  it('A1.1: Horner Evaluation', function () {
+    var a = [0, 1, 0, 1];
+    var u = 3;
+    chai.assert(closeTo(nurbs.evaluatePowerBasis(a, u), 30), 'Did not properly evaluate at u = ' + u + '.');
+  });
+  it('A1.2: Bernstein Function Evaluation', function () {
+    var n = 3;
+    chai.assert(closeTo(nurbs.getOneBernsteinFunc(0, n, 0.0), 1.0), 'Did not properly evaluate at the start point.');
+    chai.assert(closeTo(nurbs.getOneBernsteinFunc(n, n, 1.0), 1.0), 'Did not properly evaluate at the end point.');
+
+    var u = 1.0 / 3;
+    var b0 = nurbs.getOneBernsteinFunc(0, n, u);
+    var b1 = nurbs.getOneBernsteinFunc(1, n, u);
+    var b2 = nurbs.getOneBernsteinFunc(2, n, u);
+    var b3 = nurbs.getOneBernsteinFunc(3, n, u);
+
+    chai.assert(closeTo(b0, 8 / 27), 'Did not properly evaluate B[0] at u = ' + u + '.');
+    chai.assert(closeTo(b1, 4 / 9), 'Did not properly evaluate B[1] at u = ' + u + '.');
+    chai.assert(closeTo(b2, 2 / 9), 'Did not properly evaluate B[2] at u = ' + u + '.');
+    chai.assert(closeTo(b3, 1 / 27), 'Did not properly evaluate B[3] at u = ' + u + '.');
+  });
+  it('A1.3: All Bernstein Functions Evaluation', function () {
+    var n = 3;
+    var B = new Float64Array(n + 1);
+    var u = 1.0 / 3;
+
+    nurbs.getAllBernsteinFuncs(n, u, B);
+    chai.assert(closeTo(B[0], 8 / 27), 'Did not properly evaluate B[0] at u = ' + u + '.');
+    chai.assert(closeTo(B[1], 4 / 9), 'Did not properly evaluate B[1] at u = ' + u + '.');
+    chai.assert(closeTo(B[2], 2 / 9), 'Did not properly evaluate B[2] at u = ' + u + '.');
+    chai.assert(closeTo(B[3], 1 / 27), 'Did not properly evaluate B[3] at u = ' + u + '.');
+  });
+  it('A1.4: Bezier Curve Evaluation', function () {
+    var P = [
+      glm.vec2.fromValues(0, 0),
+      glm.vec2.fromValues(1, 1),
+      glm.vec2.fromValues(2, 0),
+      glm.vec2.fromValues(3, 1)
+    ];
+    var u = 0.5;
+    var C = glm.vec2.create();
+    nurbs.evaluateBezierCurve(P, P.length - 1, u, C);
+
+    chai.assert(closeTo(C, glm.vec2.fromValues(1.5, 0.5)), 'Did not properly evaluate point at u = ' + u + '.');
+  });
+});
+describe('Basis Function Tests', function () {
+  it('A2.1: Find Knot Span', function () {
+    var p = 2;
+    var U = [0, 0, 0, 1, 2, 3, 4, 4, 5, 5, 5];
+    var u = 5 / 2;
+    chai.assert(nurbs.findKnotSpan(p, u, U) === 4, 'Did not find correct knot span.');
+  });
+  it('A2.2: B-spline Basis Functions', function () {
+    var p = 2;
+    var U = [0, 0, 0, 1, 2, 3, 4, 4, 5, 5, 5];
+    var u = 5 / 2;
+    var N = [0.0, 0.0, 0.0];
+    nurbs.getBasisFunctions(u, p, U, N);
+    var correctValues = closeTo(N[0], 0.125) &&
+                        closeTo(N[1], 0.750) &&
+                        closeTo(N[2], 0.125);
+    chai.assert(correctValues, 'Did not find correct basis function values.');
+  });
+  it('A2.3: Derivatives of All Basis Functions', function () {
+    var p = 2;
+    var U = [0, 0, 0, 1, 2, 3, 4, 4, 5, 5, 5];
+    var u = 5 / 2;
+    var n = p;
+    var D = array2d(n + 1, p + 1);
+    nurbs.getDerivsOfBasisFunctions(u, p, U, n, D);
+    var correctValues = closeTo(D[0][0], 0.125) &&
+                        closeTo(D[0][1], 0.750) &&
+                        closeTo(D[0][2], 0.125);
+    chai.assert(correctValues, 'Did not find correct basis function values.');
+    correctValues = closeTo(D[1][0], -0.5) &&
+                    closeTo(D[1][1], 0) &&
+                    closeTo(D[1][2], 0.5);
+    chai.assert(correctValues, 'Did not find correct 1st derivative values.');
+    correctValues = closeTo(D[2][0], 1) &&
+                    closeTo(D[2][1], -2) &&
+                    closeTo(D[2][2], 1);
+    chai.assert(correctValues, 'Did not find correct 2nd derivative values.');
+  });
+  it('A2.4: One Basis Function', function () {
+    var p = 2;
+    var U = [0, 0, 0, 1, 2, 3, 4, 4, 5, 5, 5];
+    var u = 5 / 2;
+    var i = 4;
+    var N = nurbs.getOneBasisFunction(i, u, p, U);
+    chai.assert(closeTo(N, 0.125), 'Did not find the right basis function.');
+  });
+  it('A2.5: Derivatives of Single Basis Function', function () {
+    var p = 2;
+    var U = [0, 0, 0, 1, 2, 3, 4, 4, 5, 5, 5];
+    var u = 5 / 2;
+    var n = p;
+    var i = 4;
+    var D = new Float64Array(n + 1);
+    nurbs.getDerivsOf1BasisFunction(i, u, p, U, n, D);
+    var correctValues = closeTo(D[0], 0.125) &&
+                        closeTo(D[1], 0.5) &&
+                        closeTo(D[2], 1);
+    chai.assert(correctValues, 'Did not find correct basis function derivatives.');
+  });
+});
 describe('Curve Function Tests', function () {
   it('A3.1: Curve Point Evaluation', function () {
     var p = 3;
@@ -206,5 +312,35 @@ describe('Curve Function Tests', function () {
     chai.assert(correct, 'Did not find dS/dv.');
     correct = closeTo(SKL[1][1], glm.vec3.fromValues(0, 0, 0));
     chai.assert(correct, 'Did not find d2S/dudv.');
+  });
+});
+describe('Rational Curve Function Tests', function () {
+  it('A4.1: Rational Curve Point Evaluation', function () {
+    var p = 3;
+    var U = [0, 0, 0, 0, 1, 1, 1, 1];
+    var u = 0.5;
+    var th = Math.PI / 2;
+    var r = 1;
+    var e = (2 * Math.sin(th / 2)) / (1 + 2 * Math.cos(th / 2)) * r;
+    var sq2 = Math.sqrt(2) / 2;
+    var P = [
+      glm.vec2.fromValues(0, r),
+      glm.vec2.fromValues(e, r),
+      glm.vec2.fromValues(r, e),
+      glm.vec2.fromValues(r, 0)
+    ];
+    var ww = (1 + 2 * Math.cos(th / 2)) / 3;
+    var W = [1, ww, ww, 1];
+    var C = glm.vec2.create();
+    nurbs.getRationalCurvePoint(u, p, U, P, W, C);
+    var correct = closeTo(C, glm.vec2.fromValues(sq2, sq2));
+    chai.assert(correct, 'Did not find correct rational curve point: tolerance ');
+  });
+  it('A4.2: Rational Curve Derivative Evaluation ', function () {
+    // var p = 5;
+    // var u = 0.5;
+    // var P = [];
+    // var U = [];
+    // var W = [];
   });
 });

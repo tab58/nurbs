@@ -1,7 +1,5 @@
 'use strict';
 
-var glm = require('gl-matrix');
-var getAutoVectorType = require('../lib/getAutoVectorType.js');
 var findKnotSpan = require('./alg2-1.js');
 var getBasisFunctions = require('./alg2-2.js');
 
@@ -37,34 +35,4 @@ var getSurfacePointGeneric = function getSurfacePointGeneric (p, U, q, V, P, u, 
   return Sv;
 };
 
-/**
- *  Computes a point on a surface.
- *
- *  @param {Number|int} p - the degree of the surface in the u-direction
- *  @param {Array|Number} U - the knot vector in the u-direction
- *  @param {Number|int} q - the degree of the surface in the v-direction
- *  @param {Array|Number} V - the knot vector in the v-direction
- *  @param {Array|vec(2,3,4)} P - the control point net, with P[u][v]
- *  @param {Number} u - the u-parameter value
- *  @param {Number} v - the v-parameter value
- *
- *  @returns {vec(2,3,4)} - the point at the parameter values on the surface
- */
-var getSurfacePoint = function getSurfacePoint (p, U, q, V, P, u, v, S) {
-  var vec = getAutoVectorType(P[0][0]);
-  return getSurfacePointGeneric(p, U, q, V, P, u, v, S, vec);
-};
-
-module.exports = {
-  getSurfacePoint: getSurfacePoint,
-  getSurfacePoint2: function getSurfacePoint2 (p, U, q, V, P, u, v, S) {
-    return getSurfacePointGeneric(p, U, q, V, P, u, v, S, glm.vec2);
-  },
-  getSurfacePoint3: function getSurfacePoint3 (p, U, q, V, P, u, v, S) {
-    return getSurfacePointGeneric(p, U, q, V, P, u, v, S, glm.vec3);
-  },
-  getSurfacePoint4: function getSurfacePoint4 (p, U, q, V, P, u, v, S) {
-    return getSurfacePointGeneric(p, U, q, V, P, u, v, S, glm.vec4);
-  },
-  getSurfacePointGeneric: getSurfacePointGeneric
-};
+module.exports = getSurfacePointGeneric;
