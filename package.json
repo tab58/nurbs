@@ -37,8 +37,8 @@
       "beforeEach"
     ],
     "ignore": [
-      "/node_modules/",
-      "/doc/"
+      "node_modules/",
+      "doc/"
     ]
   },
   "dependencies": {

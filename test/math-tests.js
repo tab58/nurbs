@@ -1,12 +1,25 @@
 'use strict';
 
-const chai = require('chai');
-const nurbs = require('../nurbs.js');
-const closeTo = require('../lib/closeTo.js');
-const array2d = require('../lib/create2dArray.js');
-const glm = require('gl-matrix');
-const autoVecSelect = require('../lib/getAutoVectorType.js');
+var chai = require('chai');
+var nurbs = require('../nurbs.js');
+var closeTo = require('../lib/closeTo.js');
+var array2d = require('../lib/create2dArray.js');
+var glm = require('gl-matrix');
+var autoVecSelect = require('../lib/getAutoVectorType.js');
 
+describe('Miscellaneous Function Tests', function () {
+  it('A0.1: Binomial Coefficient Calculation', function () {
+    var binomial = require('../src/allBinomials.js');
+    var n = 5;
+    var B = binomial(n);
+    chai.assert(closeTo(B[0], 1), 'Did not properly evaluate Bin(5, 0).');
+    chai.assert(closeTo(B[1], 5), 'Did not properly evaluate Bin(5, 1).');
+    chai.assert(closeTo(B[2], 10), 'Did not properly evaluate Bin(5, 2).');
+    chai.assert(closeTo(B[3], 10), 'Did not properly evaluate Bin(5, 3).');
+    chai.assert(closeTo(B[4], 5), 'Did not properly evaluate Bin(5, 4).');
+    chai.assert(closeTo(B[5], 1), 'Did not properly evaluate Bin(5, 5).');
+  });
+});
 describe('Bezier and Power Basis Function Tests', function () {
   it('A1.1: Horner Evaluation', function () {
     var a = [0, 1, 0, 1];
@@ -336,11 +349,28 @@ describe('Rational Curve Function Tests', function () {
     var correct = closeTo(C, glm.vec2.fromValues(sq2, sq2));
     chai.assert(correct, 'Did not find correct rational curve point: tolerance ');
   });
-  it('A4.2: Rational Curve Derivative Evaluation ', function () {
-    // var p = 5;
-    // var u = 0.5;
-    // var P = [];
-    // var U = [];
-    // var W = [];
+  it('A4.2: Rational Curve Derivative Evaluation', function () {
+    var u = 0.5;
+    var p = 5;
+    var U = [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1];
+    var P = [
+      glm.vec2.fromValues(0, 0),
+      glm.vec2.fromValues(4, 0),
+      glm.vec2.fromValues(2, 4),
+      glm.vec2.fromValues(-2, 4),
+      glm.vec2.fromValues(-4, 0),
+      glm.vec2.fromValues(0, 0)
+    ];
+    var W = [1, 0.2, 0.2, 0.2, 0.2, 1];
+    var d = 2;
+    var C = [
+      glm.vec2.create(),
+      glm.vec2.create(),
+      glm.vec2.create()
+    ];
+    nurbs.getRationalCurveDerivAtPoint(u, p, U, P, W, d, C);
+    chai.assert(closeTo(C[0], glm.vec2.fromValues(0, 2)), 'Did not find correct rational curve point.');
+    chai.assert(closeTo(C[1], glm.vec2.fromValues(-8, 0)), 'Did not find correct rational curve 1st derivative.');
+    chai.assert(closeTo(C[2], glm.vec2.fromValues(0, -64)), 'Did not find correct rational curve 2nd derivative.');
   });
 });

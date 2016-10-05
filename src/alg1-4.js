@@ -1,6 +1,6 @@
 'use strict';
 
-const allBernstein = require('./alg1-3.js');
+var allBernstein = require('./alg1-3.js');
 
 var evaluateBezierCurveGeneric = function evaluateBezierCurveGeneric (P, n, u, C, vec) {
   var B = new Float64Array(n + 1);

@@ -1,7 +1,7 @@
 'use strict';
 
-const glm = require('gl-matrix');
-const getAutoVectorType = require('./lib/getAutoVectorType.js');
+var glm = require('gl-matrix');
+var getAutoVectorType = require('./lib/getAutoVectorType.js');
 
 // Reconfigure for using 64-bit math
 glm.glMatrix.ARRAY_TYPE = Float64Array;
@@ -49,9 +49,9 @@ module.exports.getOneBernsteinFunc = require('./src/alg1-2.js');
 module.exports.getAllBernsteinFuncs = require('./src/alg1-3.js');
 
 // Algorithm A1.4
-const evaluateBezierCurveGeneric = require('./src/alg1-4.js');
+var evaluateBezierCurveGeneric = require('./src/alg1-4.js');
 /**
- *  Evaluate the Berzier curve at the parameter value.
+ *  Evaluate the Bezier curve at the parameter value.
  *
  *  @param {Array|vec(2,3,4)} P - the control point of the curve
  *  @param {Number} n - the degree of the Bernstein basis functions
@@ -105,7 +105,7 @@ module.exports.getOneBasisFunction = require('./src/alg2-4.js');
 module.exports.getDerivsOf1BasisFunction = require('./src/alg2-5.js');
 
 // Algorithm A3.1
-const getCurvePointGeneric = require('./src/alg3-1.js');
+var getCurvePointGeneric = require('./src/alg3-1.js');
 /**
  *  Computes the point on the curve at the given parameter value.
  *
@@ -137,7 +137,7 @@ module.exports.vec4.getCurvePoint = function getCurvePoint (u, p, U, P, N, C) {
 };
 
 // Algorithm A3.2
-const getCurveDerivativesGeneric = require('./src/alg3-2.js');
+var getCurveDerivativesGeneric = require('./src/alg3-2.js');
 /**
  *  Computes the points at the parameter value on a series of derivative curves.
  *
@@ -168,7 +168,7 @@ module.exports.vec4.getCurveDerivatives = function getCurveDerivatives (u, p, U,
 };
 
 // Algorithm A3.3
-const getCurveDerivCtrlPointsGeneric = require('./src/alg3-3.js');
+var getCurveDerivCtrlPointsGeneric = require('./src/alg3-3.js');
 /**
  *  Computes the points for a given section (r1 to r2 inclusive) of a series of derivative curves.
  *
@@ -197,7 +197,7 @@ module.exports.vec4.getCurveDerivCtrlPoints = function getCurveDerivCtrlPoints (
 };
 
 // Algorithm A3.4
-const getCurveDerivsAtPointGeneric = require('./src/alg3-4.js');
+var getCurveDerivsAtPointGeneric = require('./src/alg3-4.js');
 /**
  *  Computes the derivatives for the curve at a specific parameter value.
  *
@@ -255,7 +255,7 @@ module.exports.vec4.getSurfacePoint = function getSurfacePoint (p, U, q, V, P, u
 };
 
 // Algorithm A3.6
-const getSurfPartialDerivsGeneric = require('./src/alg3-6.js');
+var getSurfPartialDerivsGeneric = require('./src/alg3-6.js');
 /**
  *  Computes the partial derivatives of the surface.
  *
@@ -291,7 +291,7 @@ module.exports.vec4.getSurfacePartialDerivsAtPoint = function getSurfacePartialD
 };
 
 // Algorithm A3.7
-const getSurfDerivCtrlPtsGeneric = require('./src/alg3-7.js');
+var getSurfDerivCtrlPtsGeneric = require('./src/alg3-7.js');
 /**
  *  Computes the control points in a specific region for the partial derivatives of the surface.
  *
@@ -331,7 +331,7 @@ module.exports.vec2.getSurfaceDerivCtrlPoints = function getSurfaceDerivCtrlPoin
 };
 
 // Algorithm A4.1
-const getRationalCurvePointGeneric = require('./src/alg4-1.js');
+var getRationalCurvePointGeneric = require('./src/alg4-1.js');
 
 /**
  *  Computes a point on a rational B-spline curve at the desired parameter value.
@@ -365,7 +365,7 @@ module.exports.vec4.getRationalCurvePoint = function getRationalCurvePoint (u, p
 };
 
 // Algorithm A4.2
-const getRationalCurveDerivAtPointGeneric = require('./src/alg4-2.js');
+var getRationalCurveDerivAtPointGeneric = require('./src/alg4-2.js');
 /**
  *  Computes the derivatives of a point on a rational B-spline curve at the desired parameter value.
  *
@@ -376,16 +376,16 @@ const getRationalCurveDerivAtPointGeneric = require('./src/alg4-2.js');
  *  @returns {} -
  *
  */
-module.exports.getRationalCurveDerivAtPoint = function getRationalCurveDerivAtPoint (P) {
+module.exports.getRationalCurveDerivAtPoint = function getRationalCurveDerivAtPoint (u, p, U, P, W, d, C) {
   var vec = getAutoVectorType(P[0]);
-  return getRationalCurveDerivAtPointGeneric(P, vec);
+  return getRationalCurveDerivAtPointGeneric(u, p, U, P, W, d, C, vec);
 };
-module.exports.vec2.getRationalCurveDerivAtPoint = function getRationalCurveDerivAtPoint (P) {
-  return getRationalCurveDerivAtPointGeneric(P, glm.vec2);
+module.exports.vec2.getRationalCurveDerivAtPoint = function getRationalCurveDerivAtPoint (u, p, U, P, W, d, C) {
+  return getRationalCurveDerivAtPointGeneric(u, p, U, P, W, d, C, glm.vec2);
 };
-module.exports.vec3.getRationalCurveDerivAtPoint = function getRationalCurveDerivAtPoint (P) {
-  return getRationalCurveDerivAtPointGeneric(P, glm.vec3);
+module.exports.vec3.getRationalCurveDerivAtPoint = function getRationalCurveDerivAtPoint (u, p, U, P, W, d, C) {
+  return getRationalCurveDerivAtPointGeneric(u, p, U, P, W, d, C, glm.vec3);
 };
-module.exports.vec4.getRationalCurveDerivAtPoint = function getRationalCurveDerivAtPoint (P) {
-  return getRationalCurveDerivAtPointGeneric(P, glm.vec4);
+module.exports.vec4.getRationalCurveDerivAtPoint = function getRationalCurveDerivAtPoint (u, p, U, P, W, d, C) {
+  return getRationalCurveDerivAtPointGeneric(u, p, U, P, W, d, C, glm.vec4);
 };
