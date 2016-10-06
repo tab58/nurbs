@@ -7,7 +7,7 @@ var array2d = require('../lib/create2dArray.js');
 var glm = require('gl-matrix');
 var autoVecSelect = require('../lib/getAutoVectorType.js');
 
-describe('Miscellaneous Function Tests', function () {
+describe('Math Tests: Miscellaneous Functions', function () {
   it('A0.1: Binomial Coefficient Calculation', function () {
     var binomial = require('../src/allBinomials.js');
     var n = 5;
@@ -20,7 +20,7 @@ describe('Miscellaneous Function Tests', function () {
     chai.assert(closeTo(B[5], 1), 'Did not properly evaluate Bin(5, 5).');
   });
 });
-describe('Bezier and Power Basis Function Tests', function () {
+describe('Math Tests: Bezier and Power Basis Functions', function () {
   it('A1.1: Horner Evaluation', function () {
     var a = [0, 1, 0, 1];
     var u = 3;
@@ -67,7 +67,7 @@ describe('Bezier and Power Basis Function Tests', function () {
     chai.assert(closeTo(C, glm.vec2.fromValues(1.5, 0.5)), 'Did not properly evaluate point at u = ' + u + '.');
   });
 });
-describe('Basis Function Tests', function () {
+describe('Math Tests: Bernstein Basis Functions', function () {
   it('A2.1: Find Knot Span', function () {
     var p = 2;
     var U = [0, 0, 0, 1, 2, 3, 4, 4, 5, 5, 5];
@@ -127,7 +127,7 @@ describe('Basis Function Tests', function () {
     chai.assert(correctValues, 'Did not find correct basis function derivatives.');
   });
 });
-describe('Curve Function Tests', function () {
+describe('Math Tests: B-Spline Curves and Surfaces', function () {
   it('A3.1: Curve Point Evaluation', function () {
     var p = 3;
     var U = [0, 0, 0, 0, 1, 1, 1, 1];
@@ -327,7 +327,7 @@ describe('Curve Function Tests', function () {
     chai.assert(correct, 'Did not find d2S/dudv.');
   });
 });
-describe('Rational Curve Function Tests', function () {
+describe('Math Tests: NURBS Curves and Surfaces', function () {
   it('A4.1: Rational Curve Point Evaluation', function () {
     var p = 3;
     var U = [0, 0, 0, 0, 1, 1, 1, 1];
@@ -372,5 +372,35 @@ describe('Rational Curve Function Tests', function () {
     chai.assert(closeTo(C[0], glm.vec2.fromValues(0, 2)), 'Did not find correct rational curve point.');
     chai.assert(closeTo(C[1], glm.vec2.fromValues(-8, 0)), 'Did not find correct rational curve 1st derivative.');
     chai.assert(closeTo(C[2], glm.vec2.fromValues(0, -64)), 'Did not find correct rational curve 2nd derivative.');
+  });
+  it('A4.3: Rational Surface Point Evaluation', function () {
+    var p = 3;
+    var q = 3;
+    var U = [0, 0, 0, 0, 1, 1, 1, 1];
+    var V = [0, 0, 0, 0, 1, 1, 1, 1];
+    var u = 0.5;
+    var v = 0.5;
+    var P = [
+      [glm.vec3.fromValues(0, 0, 0), glm.vec3.fromValues(1, 0, 0), glm.vec3.fromValues(2, 0, 0), glm.vec3.fromValues(3, 0, 0)],
+      [glm.vec3.fromValues(0, 1, 0), glm.vec3.fromValues(1, 1, 0), glm.vec3.fromValues(2, 1, 0), glm.vec3.fromValues(3, 1, 0)],
+      [glm.vec3.fromValues(0, 2, 0), glm.vec3.fromValues(1, 2, 0), glm.vec3.fromValues(2, 2, 0), glm.vec3.fromValues(3, 2, 0)],
+      [glm.vec3.fromValues(0, 3, 0), glm.vec3.fromValues(1, 3, 0), glm.vec3.fromValues(2, 3, 2), glm.vec3.fromValues(3, 3, 4)]
+    ];
+    var S = glm.vec3.create();
+    nurbs.getSurfacePoint(p, U, q, V, P, u, v, S);
+
+    // var S1 = glm.vec3.create();
+    // var Nu = [0, 0, 0, 0];
+    // nurbs.getBasisFunctions(u, p, U, Nu);
+    // var Nv = [0, 0, 0, 0];
+    // nurbs.getBasisFunctions(v, q, V, Nv);
+    // var i = 0;
+    // var temp = glm.vec3.create();
+    // for (i = 0; i <= p; ++i) {
+    //   nurbs.getCurvePoint(v, q, V, P[i], Nv, temp);
+    //   glm.vec3.scaleAndAdd(S1, S1, temp, Nu[i]);
+    // }
+    // var correct = closeTo(S, S1);
+    // chai.assert(correct, 'Did not find correct value of surface point.');
   });
 });

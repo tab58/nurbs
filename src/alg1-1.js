@@ -10,6 +10,9 @@
  *
  */
 var evaluatePowerBasis = function evaluatePowerBasis (a, u) {
+  if (a.length <= 0) {
+    throw new Error('Coefficient array length must be at least 1.');
+  }
   var n = a.length - 1;
   var C = a[n];
   var i = 0;

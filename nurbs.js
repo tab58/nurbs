@@ -8,7 +8,7 @@ glm.glMatrix.ARRAY_TYPE = Float64Array;
 
 /**
  *  @fileOverview A library for functions to create and modify NURBS curves and surfaces.
- *  The primary focus is on performance. Thus, objects must be allocated as needed.
+ *  The primary focus is on performance, so objects must be allocated as needed.
  *
  *  The top level NURBS object is exported when the package is called with require().
  *  Each file in the ./src/ directory can be individually called with require() as well,
@@ -22,7 +22,10 @@ glm.glMatrix.ARRAY_TYPE = Float64Array;
  *  generic functions, however any calls to other functions are passed the vecX object determined at the check. The
  *  generic functions are provided for ease of use, but are generally not recommended for performance reasons.
  *
- *  The algorithms are based on the pseudocode found in The NURBS Book, by Piegl and Tiller.
+ *  Some of the algorithms are based on the pseudocode found in "The NURBS Book", by Piegl and Tiller.
+ *
+ *  There are 2 types of tests, math and unit. The math tests verify the correctness of the
+ *  algorithms. The unit tests check for input validation errors and other functional errors.
  */
 
 // Make specific objects for specific vectors
@@ -54,24 +57,23 @@ var evaluateBezierCurveGeneric = require('./src/alg1-4.js');
  *  Evaluate the Bezier curve at the parameter value.
  *
  *  @param {Array|vec(2,3,4)} P - the control point of the curve
- *  @param {Number} n - the degree of the Bernstein basis functions
  *  @param {Number} u - the parameter value, 0 <= u <= 1
  *  @param {vec(2,3,4)} C - the evaluated curve
  *
  *  @returns {vec(2,3,4)} - the input parameter C
  */
-module.exports.evaluateBezierCurve = function (P, n, u, C) {
+module.exports.evaluateBezierCurve = function (P, u, C) {
   var vec = getAutoVectorType(P[0]);
-  return evaluateBezierCurveGeneric(P, n, u, C, vec);
+  return evaluateBezierCurveGeneric(P, u, C, vec);
 };
-module.exports.vec2.evaluateBezierCurve = function evaluateBezierCurve (P, n, u, C) {
-  return evaluateBezierCurveGeneric(P, n, u, C, glm.vec2);
+module.exports.vec2.evaluateBezierCurve = function evaluateBezierCurve (P, u, C) {
+  return evaluateBezierCurveGeneric(P, u, C, glm.vec2);
 };
-module.exports.vec3.evaluateBezierCurve = function evaluateBezierCurve (P, n, u, C) {
-  return evaluateBezierCurveGeneric(P, n, u, C, glm.vec2);
+module.exports.vec3.evaluateBezierCurve = function evaluateBezierCurve (P, u, C) {
+  return evaluateBezierCurveGeneric(P, u, C, glm.vec2);
 };
-module.exports.vec4.evaluateBezierCurve = function evaluateBezierCurve (P, n, u, C) {
-  return evaluateBezierCurveGeneric(P, n, u, C, glm.vec2);
+module.exports.vec4.evaluateBezierCurve = function evaluateBezierCurve (P, u, C) {
+  return evaluateBezierCurveGeneric(P, u, C, glm.vec2);
 };
 
 // Algorithm A2.1
@@ -332,7 +334,6 @@ module.exports.vec2.getSurfaceDerivCtrlPoints = function getSurfaceDerivCtrlPoin
 
 // Algorithm A4.1
 var getRationalCurvePointGeneric = require('./src/alg4-1.js');
-
 /**
  *  Computes a point on a rational B-spline curve at the desired parameter value.
  *
@@ -369,11 +370,15 @@ var getRationalCurveDerivAtPointGeneric = require('./src/alg4-2.js');
 /**
  *  Computes the derivatives of a point on a rational B-spline curve at the desired parameter value.
  *
- *  NOTES:
- *
+ *  @param {Number} u - the parameter value at which to evaluate the curve
+ *  @param {Number|int} p - the curve degree
+ *  @param {Array|Number} U - the knot vector of the curve
  *  @param {Array|vec(2,3,4)} P - the control point array for the curve
+ *  @param {Array|Number} W - the weights for the control points
+ *  @param {Number|int} d - the number of derivatives to evaluate
+ *  @param {Array|vec(2,3,4)} C - the (d+1) elements that will contain the derivatives
  *
- *  @returns {} -
+ *  @returns {Array|vec(2,3,4)} - the input parameter C, with C[k] being the kth derivative
  *
  */
 module.exports.getRationalCurveDerivAtPoint = function getRationalCurveDerivAtPoint (u, p, U, P, W, d, C) {
@@ -388,4 +393,38 @@ module.exports.vec3.getRationalCurveDerivAtPoint = function getRationalCurveDeri
 };
 module.exports.vec4.getRationalCurveDerivAtPoint = function getRationalCurveDerivAtPoint (u, p, U, P, W, d, C) {
   return getRationalCurveDerivAtPointGeneric(u, p, U, P, W, d, C, glm.vec4);
+};
+
+// Algorithm A4.3
+var getRationalSurfacePointGeneric = require('./src/alg4-3.js');
+/**
+ *  Computes the point on a rational B-spline surface at the desired parameter values.
+ *
+ *  NOTES:
+ *
+ *  @param {Number|int} p - the degree in the u-direction
+ *  @param {Array|Number} U - the knot vector in the u-direction
+ *  @param {Number|int} q - the degree in the v-direction
+ *  @param {Array|Number} V - the knot vector in the v-direction
+ *  @param {Array|vec(2,3,4)} P - the control point array, with P[i][j] as u
+ *  @param {Array|Number} W - the weight array, with W<sub>ij</sub> corresponding to P<sub>ij</sub>
+ *  @param {Number} u - the u parameter value
+ *  @param {Number} v - the v parameter value
+ *  @param {vec(2,3,4)} S - the placeholder for the surface point
+ *
+ *  @returns {vec(2,3,4)} - the input parameter S
+ *
+ */
+module.exports.getRationalSurfacePoint = function getRationalSurfacePoint (p, U, q, V, P, W, u, v, S) {
+  var vec = getAutoVectorType(P[0][0]);
+  return getRationalSurfacePointGeneric(p, U, q, V, P, W, u, v, S, vec);
+};
+module.exports.vec2.getRationalSurfacePoint = function getRationalSurfacePoint (p, U, q, V, P, W, u, v, S) {
+  return getRationalSurfacePointGeneric(p, U, q, V, P, W, u, v, S, glm.vec2);
+};
+module.exports.vec3.getRationalSurfacePoint = function getRationalSurfacePoint (p, U, q, V, P, W, u, v, S) {
+  return getRationalSurfacePointGeneric(p, U, q, V, P, W, u, v, S, glm.vec3);
+};
+module.exports.vec4.getRationalSurfacePoint = function getRationalSurfacePoint (p, U, q, V, P, W, u, v, S) {
+  return getRationalSurfacePointGeneric(p, U, q, V, P, W, u, v, S, glm.vec4);
 };
