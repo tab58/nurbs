@@ -1,9 +1,9 @@
 'use strict';
 
 var chai = require('chai');
-var nurbs = require('../../nurbs.js');
+var nurbs = require('../nurbs.js');
 var glm = require('gl-matrix');
-var array1d = require('../../lib/create1dArray.js');
+var array1d = require('../lib/create1dArray.js');
 // var array2d = require('../../lib/create2dArray.js');
 
 var throwMsg = 'Did not throw correct error.';
@@ -256,13 +256,13 @@ describe('Unit Tests: Input Validation -- Bernstein Basis Functions', function (
       'D must be of dimensions [n+1][p+1].',
       throwMsg);
   });
-  it('should throw when getOneBasisFunction is passed i greater than p', function () {
+  it('should throw when getOneBasisFunction is passed i greater than U.length - 1', function () {
     chai.assert.throws(
       function () {
         nurbs.getOneBasisFunction(3, 0.5, 2, []);
       },
       Error,
-      'i must be less than p.',
+      'i must be less than or equal to U.length - 1.',
       throwMsg);
   });
   it('should throw when getOneBasisFunction is passed i less than 0', function () {
@@ -292,10 +292,10 @@ describe('Unit Tests: Input Validation -- Bernstein Basis Functions', function (
       'u must be between U[p] and U[U.length - p - 1].',
       throwMsg);
   });
-  it('should throw when getDerivsOf1BasisFunction is passed i greater than p', function () {
+  it('should throw when getDerivsOf1BasisFunction is passed i greater than U.length - 1', function () {
     chai.assert.throws(
       function () {
-        var i = 4;
+        var i = 7;
         var u = 0.5;
         var p = 2;
         var U = [0, 0, 0, 1, 1, 1];
@@ -304,7 +304,7 @@ describe('Unit Tests: Input Validation -- Bernstein Basis Functions', function (
         nurbs.getDerivsOf1BasisFunction(i, u, p, U, n, D);
       },
       Error,
-      'i must be less than or equal to p.',
+      'i must be less than or equal to U.length - 1.',
       throwMsg);
   });
   it('should throw when getDerivsOf1BasisFunction is passed i less than 0', function () {

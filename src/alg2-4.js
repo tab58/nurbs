@@ -15,15 +15,15 @@
  *  @returns {Number} - the value of the ith basis function at the given parameter
  */
 var getOneBasisFunction = function getOneBasisFunction (i, u, p, U) {
-  if (i > p) {
-    throw new Error('i must be less than p.');
+  var m = U.length - 1;
+  if (i > m) {
+    throw new Error('i must be less than or equal to U.length - 1.');
   }
   if (i < 0) {
     throw new Error('i must be greater than 0.');
   }
-  var m = U.length - 1;
   if (u < U[p] || u > U[m - p]) {
-    throw new Error('u must be between U[p] and U[U.length - p - 1].'); 
+    throw new Error('u must be between U[p] and U[U.length - p - 1].');
   }
   var N = new Float64Array(p + 1);
   var j = 0;

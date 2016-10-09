@@ -9,7 +9,6 @@ var getRationalSurfacePointGeneric = function getRationalSurfacePointGeneric (p,
     console.warn('Empty weight array. Using "getSurfacePoint".');
     return getSurfacePoint(p, U, q, V, P, u, v, S, vec);
   }
-  // vec.set(S, 0.0, 0.0, 0.0, 0.0);
 
   var uspan = findKnotSpan(p, u, U);
   var Nu = new Float64Array(p + 1);
@@ -24,12 +23,10 @@ var getRationalSurfacePointGeneric = function getRationalSurfacePointGeneric (p,
   var tmpW = 0.0;
   var wi = 0.0;
   var w = 0;
-  var temp = [];
   var Sw = vec.create();
-  
+
   // TODO: make this more efficient by iterating over the P[i] array instead
   // getting elements from each P[i][] array
-  var wg = 0;
   for (l = 0; l <= q; ++l) {
     tmp = vec.create();
     tmpW = 0.0;
