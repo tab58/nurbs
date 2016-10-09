@@ -17,8 +17,11 @@ var findKnotSpan = require('./alg2-1.js');
  *
  */
 var getBasisFunctions = function getBasisFunctions (u, p, U, N) {
+  if (N.length <= p) {
+    throw new Error('Array for basis function too small.');
+  }
+
   var i = findKnotSpan(p, u, U);
-  // var N = NN || new Float64Array(p + 1);
   var left = new Float64Array(p + 1);
   var right = new Float64Array(p + 1);
   var j = p + 1;

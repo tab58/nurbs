@@ -16,6 +16,7 @@ var getSurfDerivCtrlPtsGeneric = function getSurfDerivCtrlPtsGeneric (p, U, q, V
   // for (k = 0; k < du; ++k) {
 
   // }
+  throw new Error('Not implemented yet.');
 };
 
 module.exports = getSurfDerivCtrlPtsGeneric;

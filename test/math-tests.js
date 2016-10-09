@@ -62,7 +62,7 @@ describe('Math Tests: Bezier and Power Basis Functions', function () {
     ];
     var u = 0.5;
     var C = glm.vec2.create();
-    nurbs.evaluateBezierCurve(P, P.length - 1, u, C);
+    nurbs.evaluateBezierCurve(P, u, C);
 
     chai.assert(closeTo(C, glm.vec2.fromValues(1.5, 0.5)), 'Did not properly evaluate point at u = ' + u + '.');
   });
@@ -379,28 +379,21 @@ describe('Math Tests: NURBS Curves and Surfaces', function () {
     var U = [0, 0, 0, 0, 1, 1, 1, 1];
     var V = [0, 0, 0, 0, 1, 1, 1, 1];
     var u = 0.5;
-    var v = 0.5;
+    var v = 1 / 3;
     var P = [
-      [glm.vec3.fromValues(0, 0, 0), glm.vec3.fromValues(1, 0, 0), glm.vec3.fromValues(2, 0, 0), glm.vec3.fromValues(3, 0, 0)],
-      [glm.vec3.fromValues(0, 1, 0), glm.vec3.fromValues(1, 1, 0), glm.vec3.fromValues(2, 1, 0), glm.vec3.fromValues(3, 1, 0)],
-      [glm.vec3.fromValues(0, 2, 0), glm.vec3.fromValues(1, 2, 0), glm.vec3.fromValues(2, 2, 0), glm.vec3.fromValues(3, 2, 0)],
-      [glm.vec3.fromValues(0, 3, 0), glm.vec3.fromValues(1, 3, 0), glm.vec3.fromValues(2, 3, 2), glm.vec3.fromValues(3, 3, 4)]
+      [glm.vec3.fromValues(0, 0, 1), glm.vec3.fromValues(2, 0, 1), glm.vec3.fromValues(2, 0, -1), glm.vec3.fromValues(0, 0, -1)],
+      [glm.vec3.fromValues(0, 0, 1), glm.vec3.fromValues(2, 4, 1), glm.vec3.fromValues(2, 4, -1), glm.vec3.fromValues(0, 0, -1)],
+      [glm.vec3.fromValues(0, 0, 1), glm.vec3.fromValues(-2, 4, 1), glm.vec3.fromValues(-2, 4, -1), glm.vec3.fromValues(0, 0, -1)],
+      [glm.vec3.fromValues(0, 0, 1), glm.vec3.fromValues(-2, 0, 1), glm.vec3.fromValues(-2, 0, -1), glm.vec3.fromValues(0, 0, -1)]
+    ];
+    var W = [
+      [1, 1 / 3, 1 / 3, 1],
+      [1 / 3, 1 / 9, 1 / 9, 1 / 3],
+      [1 / 3, 1 / 9, 1 / 9, 1 / 3],
+      [1, 1 / 3, 1 / 3, 1]
     ];
     var S = glm.vec3.create();
-    nurbs.getSurfacePoint(p, U, q, V, P, u, v, S);
-
-    // var S1 = glm.vec3.create();
-    // var Nu = [0, 0, 0, 0];
-    // nurbs.getBasisFunctions(u, p, U, Nu);
-    // var Nv = [0, 0, 0, 0];
-    // nurbs.getBasisFunctions(v, q, V, Nv);
-    // var i = 0;
-    // var temp = glm.vec3.create();
-    // for (i = 0; i <= p; ++i) {
-    //   nurbs.getCurvePoint(v, q, V, P[i], Nv, temp);
-    //   glm.vec3.scaleAndAdd(S1, S1, temp, Nu[i]);
-    // }
-    // var correct = closeTo(S, S1);
-    // chai.assert(correct, 'Did not find correct value of surface point.');
+    nurbs.getRationalSurfacePoint(p, U, q, V, P, W, u, v, S);
+    chai.assert(closeTo(S, glm.vec3.fromValues(0, 0.8, 0.6)), 'Did not find correct rational surface point.');
   });
 });

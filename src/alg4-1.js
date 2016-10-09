@@ -2,13 +2,13 @@
 
 var findKnotSpan = require('./alg2-1.js');
 var getBasisFunctions = require('./alg2-2.js');
-var alg3s1 = require('./alg3-1.js');
+var getCurvePointGeneric = require('./alg3-1.js');
 
 var getRationalCurvePointGeneric = function getRationalCurvePointGeneric (u, p, U, P, W, c, vec) {
   var N = new Float64Array(p + 1);
-  if (W === undefined || W.length === 0) {
-    console.log('Empty weight array.');
-    return alg3s1(u, p, U, P, N, undefined, vec);
+  if (W === undefined || W === null || W.length === 0) {
+    console.warn('Empty weight array. Using "getCurvePoint".');
+    return getCurvePointGeneric(u, p, U, P, N, undefined, vec);
   }
   var span = findKnotSpan(p, u, U);
   getBasisFunctions(u, p, U, N);

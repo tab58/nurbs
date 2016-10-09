@@ -1,5 +1,6 @@
 'use strict';
 
+var array1d = require('../lib/create1dArray.js');
 var array2d = require('../lib/create2dArray.js');
 
 /**
@@ -19,6 +20,21 @@ var array2d = require('../lib/create2dArray.js');
  *  @returns {Array|Number} - the input parameter D
  */
 var getDerivsOf1BasisFunction = function getDerivsOf1BasisFunction (i, u, p, U, n, D) {
+  if (i > p) {
+    throw new Error('i must be less than or equal to p.');
+  }
+  if (i < 0) {
+    throw new Error('i must be greater than 0.');
+  }
+  if (D.length <= n) {
+    throw new Error('D must be of dimensions [n+1][p+1].');
+  }
+  var i = 0;
+  for (i = 0; i < D.length; ++i) {
+    if (D[i].length <= p) {
+      throw new Error('D must be of dimensions [n+1][p+1].');
+    }
+  }
   var ders = D;
   var j = 0;
   var jj = 0;
@@ -28,7 +44,7 @@ var getDerivsOf1BasisFunction = function getDerivsOf1BasisFunction (i, u, p, U, 
   var saved = 0.0;
   var temp = 0.0;
   var N = array2d(p + 1, p + 1);
-  var ND = new Float64Array(n + 1);
+  var ND = array1d(n + 1);
 
   if (u < U[i] || u >= U[i + p + 1]) {
     for (k = 0; k <= n; ++k) {

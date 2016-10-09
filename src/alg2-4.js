@@ -15,7 +15,16 @@
  *  @returns {Number} - the value of the ith basis function at the given parameter
  */
 var getOneBasisFunction = function getOneBasisFunction (i, u, p, U) {
+  if (i > p) {
+    throw new Error('i must be less than p.');
+  }
+  if (i < 0) {
+    throw new Error('i must be greater than 0.');
+  }
   var m = U.length - 1;
+  if (u < U[p] || u > U[m - p]) {
+    throw new Error('u must be between U[p] and U[U.length - p - 1].'); 
+  }
   var N = new Float64Array(p + 1);
   var j = 0;
   var k = 0;
@@ -24,6 +33,7 @@ var getOneBasisFunction = function getOneBasisFunction (i, u, p, U) {
   var saved = 0.0;
   var temp = 0.0;
 
+  // special cases
   if ((i === 0 && u === U[0]) ||
       (i === m - p - 1 && u === U[m])) {
     return 1.0;
@@ -31,8 +41,7 @@ var getOneBasisFunction = function getOneBasisFunction (i, u, p, U) {
   if (u < U[i] || u >= U[i + p + 1]) {
     return 0.0;
   }
-  for (j = 0; j <=
-   p; ++j) {
+  for (j = 0; j <= p; ++j) {
     if (u >= U[i + j] && u < U[i + j + 1]) {
       N[j] = 1.0;
     } else {

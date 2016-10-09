@@ -21,13 +21,18 @@ var array2d = require('../lib/create2dArray.js');
  *
  */
 var getDerivsOfBasisFunctions = function getDerivsOfBasisFunctions (u, p, U, n, D) {
-  var i = findKnotSpan(p, u, U);
+  if (D.length <= n) {
+    throw new Error('D must be of dimensions [n+1][p+1].');
+  }
+  var i = 0;
+  for (i = 0; i < D.length; ++i) {
+    if (D[i].length <= p) {
+      throw new Error('D must be of dimensions [n+1][p+1].');
+    }
+  }
+
+  i = findKnotSpan(p, u, U);
   var ders = D;
-  // if (D) {
-  //   ders = D;
-  // } else {
-  //   ders = array2d(n + 1, p + 1);
-  // }
   var ndu = array2d(p + 1, p + 1);
   var a = array2d(2, p + 1);
 

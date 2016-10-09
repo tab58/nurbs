@@ -3,10 +3,6 @@
 /**
  *  Computes the knot span, or the knot vector index that satisfies u<sub>i</sub> <= u < u<sub>i+1</sub>.
  *
- *  NOTES:
- *    1. Does no checks if the parameter value is greater than the maximum
- *       knot vector value or less than the minimum.
- *
  *  @param {Number} p - the degree of the B-spline (integer)
  *  @param {Number} u - the parameter value
  *  @param {Array|Number} U - the knot vector of the B-spline
@@ -16,6 +12,9 @@
  */
 var findKnotSpan = function findKnotSpan (p, u, U) {
   var n = U.length - p - 1;
+  if (u < U[p] || u > U[n + 1]) {
+    throw new Error('u must be between U[p] and U[n + 1].');
+  }
   if (u === U[n + 1]) {
     return n;
   }

@@ -5,7 +5,8 @@
   "main": "nurbs.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha test/*.js",
-    "unitTests": "./node_modules/mocha/bin/mocha test/unit/*.js",
+    "math-tests": "./node_modules/mocha/bin/mocha test/math-tests.js",
+    "unit-tests": "./node_modules/mocha/bin/mocha test/exception-tests.js",
     "doc": "jsdoc nurbs.js -c ./jsdoc.config.json",
     "lint": "./node_modules/semistandard/bin/cmd.js --verbose | ./node_modules/snazzy/bin/cmd.js",
     "build": "npm run lint && npm run test && npm run doc"
